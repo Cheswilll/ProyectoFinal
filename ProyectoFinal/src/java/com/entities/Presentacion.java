@@ -50,6 +50,10 @@ public class Presentacion implements Serializable {
     private String descripcionPresentacion;
     @Column(name = "estadoPresentacion")
     private Integer estadoPresentacion;
+    @Column(name = "nota")
+    private Integer nota;
+    @Column(name = "cantidadEstudiantes")
+    private Integer cantidadEstudiantes;
     @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario noIdentificacion;
@@ -109,6 +113,24 @@ public class Presentacion implements Serializable {
         this.noIdentificacion = noIdentificacion;
     }
 
+    public Integer getNota() {
+        return nota;
+    }
+
+    public void setNota(Integer nota) {
+        this.nota = nota;
+    }
+
+    public Integer getCantidadEstudiantes() {
+        return cantidadEstudiantes;
+    }
+
+    public void setCantidadEstudiantes(Integer cantidadEstudiantes) {
+        this.cantidadEstudiantes = cantidadEstudiantes;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -131,8 +153,10 @@ public class Presentacion implements Serializable {
 
     @Override
     public String toString() {
-        return "Presentacion{" + "idPresentacion=" + idPresentacion + ", nombrePresentacion=" + nombrePresentacion + ", fechaPresentacion=" + fechaPresentacion + ", descripcionPresentacion=" + descripcionPresentacion + ", estadoPresentacion=" + estadoPresentacion + ", noIdentificacion=" + noIdentificacion + '}';
+        return "Presentacion{" + "idPresentacion=" + idPresentacion + ", nombrePresentacion=" + nombrePresentacion + ", fechaPresentacion=" + fechaPresentacion + ", descripcionPresentacion=" + descripcionPresentacion + ", estadoPresentacion=" + estadoPresentacion + ", nota=" + nota + ", cantidadEstudiantes=" + cantidadEstudiantes + ", noIdentificacion=" + noIdentificacion + '}';
     }
+
+    
 
     
     

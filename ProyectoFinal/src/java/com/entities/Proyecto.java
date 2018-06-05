@@ -48,6 +48,10 @@ public class Proyecto implements Serializable {
     private Integer estadoProyecto;
     @Column(name = "fechaProyecto")
     private String fechaProyecto;
+    @Column(name = "cantidadEstudiantes")
+    private Integer cantidadEstudiantes;
+     @Column(name = "cantidadGrupos")
+    private Integer cantidadGrupos;
     @Column(name = "descripcionProyecto")
     private String descripcionProyecto;
     @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")
@@ -109,6 +113,24 @@ public class Proyecto implements Serializable {
         this.noIdentificacion = noIdentificacion;
     }
 
+    public Integer getCantidadEstudiantes() {
+        return cantidadEstudiantes;
+    }
+
+    public void setCantidadEstudiantes(Integer cantidadEstudiantes) {
+        this.cantidadEstudiantes = cantidadEstudiantes;
+    }
+
+    public Integer getCantidadGrupos() {
+        return cantidadGrupos;
+    }
+
+    public void setCantidadGrupos(Integer cantidadGrupos) {
+        this.cantidadGrupos = cantidadGrupos;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -131,8 +153,10 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "Proyecto{" + "idProyecto=" + idProyecto + ", nombreProyecto=" + nombreProyecto + ", estadoProyecto=" + estadoProyecto + ", fechaProyecto=" + fechaProyecto + ", descripcionProyecto=" + descripcionProyecto + ", noIdentificacion=" + noIdentificacion + '}';
+        return "Proyecto{" + "idProyecto=" + idProyecto + ", nombreProyecto=" + nombreProyecto + ", estadoProyecto=" + estadoProyecto + ", fechaProyecto=" + fechaProyecto + ", cantidadEstudiantes=" + cantidadEstudiantes + ", cantidadGrupos=" + cantidadGrupos + ", descripcionProyecto=" + descripcionProyecto + ", noIdentificacion=" + noIdentificacion + '}';
     }
+
+    
 
     
     

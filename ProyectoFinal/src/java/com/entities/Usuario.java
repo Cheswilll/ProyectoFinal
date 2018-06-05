@@ -50,6 +50,8 @@ public class Usuario implements Serializable {
     private String contrasena;
     @Column(name = "correoElectronico")
     private String correoElectronico;
+    @Column(name = "correoElectronicoInstitucional")
+    private String correoElectronicoInstitucional;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "apellido")
@@ -131,6 +133,15 @@ public class Usuario implements Serializable {
         this.estado = estado;
     }
 
+    public String getCorreoElectronicoInstitucional() {
+        return correoElectronicoInstitucional;
+    }
+
+    public void setCorreoElectronicoInstitucional(String correoElectronicoInstitucional) {
+        this.correoElectronicoInstitucional = correoElectronicoInstitucional;
+    }
+
+    
     @XmlTransient
     public List<Rol> getRoles() {
         return roles;
