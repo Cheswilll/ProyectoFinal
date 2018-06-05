@@ -42,6 +42,7 @@ public class Presentacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "idPresentacion")
     private Integer idPresentacion;
+    @Basic(optional = false)
     @Column(name = "nombrePresentacion")
     private String nombrePresentacion;
     @Column(name = "fechaPresentacion")

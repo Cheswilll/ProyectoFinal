@@ -42,6 +42,7 @@ public class Proyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "idProyecto")
     private Integer idProyecto;
+    @Basic(optional = false)
     @Column(name = "nombreProyecto")
     private String nombreProyecto;
     @Column(name = "estadoProyecto")
