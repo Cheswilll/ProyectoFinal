@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author wmoramor
+ * @author Ludy Lozano
  */
 @Local
 public interface PresentacionFacadeLocal {

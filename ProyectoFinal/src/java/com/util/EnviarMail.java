@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author APRENDIZ
+ * @author Ludy Lozano
  */
 public class EnviarMail {
     

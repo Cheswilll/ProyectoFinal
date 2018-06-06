@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author wmoramor
+ * @author Ludy Lozano
  */
 @Entity
 @Table(name = "presentaciones")

@@ -7,7 +7,7 @@ package com.usuarios.controllers;
 
 /**
  *
- * @author wmoramor
+ * @author Ludy Lozano
  */
 public class ListarUsuariosController {
     

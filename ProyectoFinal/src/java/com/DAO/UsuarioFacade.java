@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author wmoramor
+ * @author Ludy Lozano
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeLocal {

@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author wmoramor
+ * @author Ludy Lozano
  */
 @Stateless
 public class PermisoFacade extends AbstractFacade<Permiso> implements PermisoFacadeLocal {

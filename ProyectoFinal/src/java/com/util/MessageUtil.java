@@ -12,7 +12,7 @@ import javax.faces.model.SelectItem;
 
 /**
  *
- * @author Cheswill
+ * @author Ludy Lozano
  */
 public class MessageUtil {
     
