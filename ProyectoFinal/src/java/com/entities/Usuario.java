@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ludy Lozano
+ * @author wmoramor
  */
 @Entity
 @Table(name = "usuarios")
@@ -46,25 +46,20 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "noIdentificacion")
     private Long noIdentificacion;
-    @Basic(optional = false)
     @Column(name = "contrasena")
     private String contrasena;
     @Column(name = "correoElectronico")
     private String correoElectronico;
     @Column(name = "correoElectronicoInstitucional")
     private String correoElectronicoInstitucional;
-    @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
-    @Basic(optional = false)
     @Column(name = "apellido")
     private String apellido;
     @Column(name = "direccion")
     private String direccion;
     @Column(name = "estado")
     private Integer estado;
-    @Column(name = "telefono")
-    private String telefono;
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     private List<Rol> roles;
     @OneToMany(mappedBy = "noIdentificacion", fetch = FetchType.LAZY)
@@ -144,14 +139,6 @@ public class Usuario implements Serializable {
 
     public void setCorreoElectronicoInstitucional(String correoElectronicoInstitucional) {
         this.correoElectronicoInstitucional = correoElectronicoInstitucional;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ludy Lozano
+ * @author wmoramor
  */
 @Entity
 @Table(name = "tiposidentificacion")

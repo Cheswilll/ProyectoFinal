@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ludy Lozano
+ * @author wmoramor
  */
 @Entity
 @Table(name = "proyectos")
@@ -42,7 +42,6 @@ public class Proyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "idProyecto")
     private Integer idProyecto;
-    @Basic(optional = false)
     @Column(name = "nombreProyecto")
     private String nombreProyecto;
     @Column(name = "estadoProyecto")
