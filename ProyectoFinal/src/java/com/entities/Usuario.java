@@ -12,12 +12,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -62,7 +63,11 @@ public class Usuario implements Serializable {
     private Integer estado;
     @Column(name = "telefono")
     private String telefono;
-    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
+    
+    @JoinTable(name = "usuarioswithroles", joinColumns = {
+        @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")}, inverseJoinColumns = {
+        @JoinColumn(name = "idRol", referencedColumnName = "idRol")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
     @OneToMany(mappedBy = "noIdentificacion", fetch = FetchType.LAZY)
     private List<Presentacion> presentaciones;
@@ -75,6 +80,36 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
+    public Usuario(Long noIdentificacion, String contrasena, String correoElectronico, String correoElectronicoInstitucional, String nombre, String apellido, String direccion, String telefono, TipoIdentificacion tipoIdentificacion) {
+        this.noIdentificacion = noIdentificacion;
+        this.contrasena = contrasena;
+        this.correoElectronico = correoElectronico;
+        this.correoElectronicoInstitucional = correoElectronicoInstitucional;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.tipoIdentificacion = tipoIdentificacion;
+    }
+
+    public Usuario(Long noIdentificacion, String contrasena, String correoElectronico, String correoElectronicoInstitucional, String nombre, String apellido, String direccion, Integer estado, String telefono, List<Rol> roles, List<Presentacion> presentaciones, List<Proyecto> proyectos, TipoIdentificacion tipoIdentificacion) {
+        this.noIdentificacion = noIdentificacion;
+        this.contrasena = contrasena;
+        this.correoElectronico = correoElectronico;
+        this.correoElectronicoInstitucional = correoElectronicoInstitucional;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.estado = estado;
+        this.telefono = telefono;
+        this.roles = roles;
+        this.presentaciones = presentaciones;
+        this.proyectos = proyectos;
+        this.tipoIdentificacion = tipoIdentificacion;
+    }
+
+    
+    
     public Usuario(Long noIdentificacion) {
         this.noIdentificacion = noIdentificacion;
     }

@@ -32,4 +32,5 @@ public interface UsuarioFacadeLocal {
 
     public Usuario login(Long noidentificacion, String contraseña);
     
+    List<Usuario> usuariosInactivos();
 }

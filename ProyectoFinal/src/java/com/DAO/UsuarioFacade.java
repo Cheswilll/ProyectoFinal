@@ -6,9 +6,11 @@
 package com.DAO;
 
 import com.entities.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -40,6 +42,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    @Override
+    public List<Usuario> usuariosInactivos() {
+        System.out.println("Ejecutando metodo buscar usuarios inactivos");
+        Query q = em.createNativeQuery("SELECT u.* " +
+                                "FROM usuarios AS u join usuarioswithroles join roles " +
+                                "on u.noIdentificacion = usuarioswithroles.noIdentificacion AND usuarioswithroles.idRol  = roles.idRol AND u.estado=?;", Usuario.class);
+        q.setParameter(1, 2);
+        List<Usuario> usuarios = q.getResultList();
+
+        for (Usuario u : usuarios) {
+            System.out.println("Listando usuarios Administrador");
+        }
+        System.out.println(usuarios);
+        
+        return usuarios;
     }
     
 }
