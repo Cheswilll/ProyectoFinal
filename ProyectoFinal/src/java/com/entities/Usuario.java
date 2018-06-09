@@ -60,6 +60,8 @@ public class Usuario implements Serializable {
     private String direccion;
     @Column(name = "estado")
     private Integer estado;
+    @Column(name = "telefono")
+    private String telefono;
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     private List<Rol> roles;
     @OneToMany(mappedBy = "noIdentificacion", fetch = FetchType.LAZY)
@@ -141,6 +143,15 @@ public class Usuario implements Serializable {
         this.correoElectronicoInstitucional = correoElectronicoInstitucional;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    
     
     @XmlTransient
     public List<Rol> getRoles() {

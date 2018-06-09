@@ -56,8 +56,10 @@
                                     <h:outputLabel class="sr-only" for="form-password" value="Contraseña"/>
                                     <b:inputSecret p:placeholder="Contraseña..." class="form-password form-control" id="form-password" value="#{sessionController.contraseña}"/>
 			        </div>
-                        <b:commandButton class="btn" value="Ingresar" style="width: 48%; margin: 1%;" action="#{sessionController.iniciarSesion()}" />
-                                    <b:commandButton class="btn-primary" style="background-color: #2aabd2; width: 48%; margin: 1%;" value="Registrarse" />
+                        <b:commandButton class="btn" value="Ingresar" style="width: 100%; margin: 1%;" action="#{sessionController.iniciarSesion()}" />
+                        </h:form>
+                        <h:form>
+                            <b:commandButton class="btn-primary" style="background-color: #2aabd2; width: 100%; margin: 1%;" value="Registrarse" action="register.xhtml?faces-redirect=true" />
 			</h:form>
 		    </div>
                         </div>
