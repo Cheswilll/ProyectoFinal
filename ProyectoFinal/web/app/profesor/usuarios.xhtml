@@ -25,20 +25,20 @@
         <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/shieldui-all.min.js"></script>
         <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/gridData.js"></script>
     </h:head>
-    <h:body style="background-color:#F8F8F8">
-        <div id="wrapper" style=" padding-left: 200px">
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#918E8E; ">
-                 <div class="navbar-header">
+    <h:body>
+        <div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-               
+                    <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/nintendo.png" style="width: 10vw; height: 4vh;"/></a>
                     <a class="navbar-brand" >
                         <h:form id="form-rol">
-                            <h:selectOneMenu class="form-control" style="color: #fff; background-color: #7AC398; margin-top: -1vh; margin-left: 13vw;"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
+                            <h:selectOneMenu class="form-control" style="color: #fff; background-color: #2a9fd6"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
                                 <f:selectItems value="#{sessionController.usuario.roles}" var="r"
                                                itemLabel="#{r.nombreRol}"/>
                                 <f:converter converterId="rolConverter"/>
@@ -46,19 +46,16 @@
                         </h:form> 
                     </a>
                 </div>
-                <div  class="  navbar-ex1-collapse" style="margin-left: 30px;">
-                    <div>
-                        <ul id="active" class=" nav side-nav" style="  background-color: #918E8E; width: 15vw" >
-                            <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/logo_ean_principal_vigilado_1.png" style="width: 8vw; height: 18vh; margin-left: 1.7vw"/></a>
-                            <li class="selected sobre" style="margin-top: 3vh; font-size: 19px; margin-top: 20vh;"><a href="#{request.contextPath}/app/inicio.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
-                            <c:forEach items="#{sessionController.rolSeleccionado.permisos}" var="p">
-                                <li style="font-size: 19px;"><h:link  class="selected" style="color: #fff" outcome="/#{p.url}">#{p.nombre} </h:link></li>
-                            </c:forEach>
-                        </ul>
-                    </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul id="active" class="nav navbar-nav side-nav" style="margin-left: -15vw;">
+                        <li class="selected sobre" style="margin-top: 3vh; font-size: 19px;"><a href="#{request.contextPath}/index.xhtml"><i class="fa fa-home"></i> Inicio </a></li>
+                        <c:forEach items="#{sessionController.rolSeleccionado.permisos}" var="p">
+                            <li style="font-size: 19px;"><h:link  class="selected" outcome="/#{p.url}">#{p.nombre} </h:link></li>
+                        </c:forEach>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right navbar-user">
                         <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff"><i class="fa fa-user" style="color:#fff"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
                                 <li><a href="#"><i class="fa fa-gear"></i> Ajustes </a></li>
@@ -68,7 +65,7 @@
                         </li>
                         <li class="divider-vertical"></li>
                         <li>
-                            <li><a href="#"><i class="fa fa-power-off" style="color:#fff;"></i><font color="#fff"> Salir</font></a></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Salir</a></li>
                         </li>
                     </ul>
                 </div>
@@ -76,9 +73,8 @@
 
             <div id="page-wrapper">
 
-                <div class="row">
+                <div class="row" style="margin-top: 10vh;">
                     <div class="col-lg-12">
-                        <br></br><br></br><br></br>
                         <h2>Gestión de usuarios</h2>
                     </div>
                 </div>
@@ -102,12 +98,13 @@
                                         <b:dataTableColumn label="Estado" value="#{listarUsuariosController.validarEstado(u.estado)}"/>
                                         <b:dataTableColumn label="Tipo Identificación" value="#{u.tipoIdentificacion.nombreTipoIdentificacion}"/>
                                         <b:dataTableColumn label="Más" value="">
-                                            <b:commandButton look="primary" iconAwesome="pencil" action="#{modificarUsuariosController.preModificar(u)}"/>
+                                            <b:commandButton look="primary" value="" iconAwesome="pencil"/>
+
                                             <b:commandButton look="danger" value=""
                                                              iconAwesome="trash" tooltip="Eliminar"
                                                              onclick="$('.modalPseudoClass').modal();">
                                                 <f:ajax event="click" render=":message-modal-confirm"
-                                                        listener="#{listarUsuariosController.setUsuarioSeleccionado(u)}" />
+                                                      listener="#{listarPersonasController.setPersonaSeleccionada(p)}" />
                                             </b:commandButton>
                                         </b:dataTableColumn>
 
@@ -116,14 +113,14 @@
 
                                 <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
                                     <h:panelGroup id="message-modal-confirm" layout="block">
-                                        <p>¿Está seguro de eliminar el usuario C.C #{listarUsuariosController.usuarioSeleccionado.noIdentificacion} Usuario: #{listarUsuariosController.usuarioSeleccionado.nombre} #{listarUsuariosController.usuarioSeleccionado.apellido} ?
+                                        <p>¿Está seguro de eliminar el usuario <!--#{listarPersonasController.personaSeleccionada.noIdentificacion} #{listarPersonasController.personaSeleccionada.nombre1} -->?
                                         </p>
                                     </h:panelGroup>
                                     <f:facet name="footer">
                                         <h:form id="form-eliminar" prependId="false">
                                             <b:button value="Close" dismiss="modal" />
                                             <b:commandButton value="Ok" look="primary"
-                                                             actionListener="#{listarUsuariosController.eliminarUsuario()}"/>
+                                                         actionListener="#{listarPersonasController.eliminarPersona()}"/>
 
                                         </h:form>
                                     </f:facet>
@@ -134,64 +131,17 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-user"></i>  Usuarios inactivos - bloqueados </h3>
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Graficas </h3>
                             </div>
                             <div class="panel-body">
-                                <b:message for="tabla_usuarios_inactivos" show-summary="true" show-detail="true"/>
-                                <b:form prependId="false" id="tabla_usuarios_inactivos">
-                                    <b:dataTable value="#{listarUsuariosController.usuariosInactivos}" var="u" style="background: #fff; color: #000;">
-                                        <b:dataTableColumn label="No. de identificación" value="#{u.noIdentificacion}"/>
-                                        <b:dataTableColumn label="Correo electronico" value="#{u.correoElectronico}"/>
-                                        <b:dataTableColumn label="Correo institucional" value="#{u.correoElectronicoInstitucional}"/>
-                                        <b:dataTableColumn label="Nombre" value="#{u.nombre}"/>
-                                        <b:dataTableColumn label="Apellido" value="#{u.apellido}"/>
-                                        <b:dataTableColumn label="Estado" value="#{listarUsuariosController.validarEstado(u.estado)}"/>
-                                        <b:dataTableColumn label="Tipo Identificación" value="#{u.tipoIdentificacion.nombreTipoIdentificacion}"/>
-
-                                        <b:dataTableColumn label="Más" value="">
-                                            <b:commandButton look="success" iconAwesome="eye" action="#{verUsuarioController.verUsuario(u)}"/>
-                                            <b:commandButton look="default" iconAwesome="#{modificarUsuariosController.getIconUsuarioBloqueo(u)}" action="#{modificarUsuariosController.cambioDeEstado(u)}"/>
-                                        </b:dataTableColumn>
-                                    </b:dataTable>
-                                </b:form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-plus"></i> Agregar Usuario </h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="create">
-
-                                    <b:message for="form-crear-admin" show-summary="true" show-detail="true"/>
-                                    <h:form prependId="false" id="form-crear-admin">
-                                        <h:selectOneMenu class="form-control" style="" converter="tipoIdentificacionConverter" id="idTipoIdentificacion" required="true" value="#{registrarUsuarioAdminController.usuarioNuevo.tipoIdentificacion}" >
-                                            <f:selectItems value="#{listarTipoIdentificacionController.tiposIdentificacion}" var="ti" itemLabel="#{ti.nombreTipoIdentificacion}"/>
-                                        </h:selectOneMenu>
-                                        <b:inputText p:placeholder="No. identificación" style="margin-top: 2vh;" value="#{registrarUsuarioAdminController.usuarioNuevo.noIdentificacion}"/>
-                                        <b:inputText p:placeholder="Nombre" style="" value="#{registrarUsuarioAdminController.usuarioNuevo.nombre}"/>
-                                        <b:inputText p:placeholder="Apellido" value="#{registrarUsuarioAdminController.usuarioNuevo.apellido}"/>
-                                        <b:inputText p:placeholder="Dirección" value="#{registrarUsuarioAdminController.usuarioNuevo.direccion}"/>
-                                        <b:inputText p:placeholder="Correo personal" value="#{registrarUsuarioAdminController.usuarioNuevo.correoElectronico}"/>
-                                        <b:inputText p:placeholder="Correo Institucional" value="#{registrarUsuarioAdminController.usuarioNuevo.correoElectronicoInstitucional}"/>
-                                        <b:inputText p:placeholder="Teléfono" value="#{registrarUsuarioAdminController.usuarioNuevo.telefono}"/> 
-                                        <h:selectOneMenu class="form-control"  id="estado" required="true" value="#{registrarUsuarioAdminController.estadoString}" >
-                                            <f:selectItems value="#{listarEstadosController.estados}" var="est" itemLabel="#{est.toString()}"/>
-                                        </h:selectOneMenu>
-                                        <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarUsuarioAdminController.registrarUsuario()}"/>
-                                    </h:form>
-                                </div>
+                                <p>Faust is a tragic play in two parts by Johann Wolfgang von Goethe, 
+                                    usually known in English as Faust, Part One and Faust, Part Two.
+                                    Although rarely staged in its entirety, it is the play with the largest audience numbers on 
+                                    German-language stages. Faust is considered by many to be Goethe's magnum opus and the 
+                                    greatest work of German literature.</p>
                             </div>
                         </div>
                     </div>
@@ -206,6 +156,32 @@
                                 <p>Profesores<a style="float: right">34</a></p>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Calendario </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-magnet"></i> Titulo 4 </h3>
+                            </div>
+                            <div class="panel-body">
+                                Contenudo 4    
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-lg-4">
                         <header>
