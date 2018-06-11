@@ -7,7 +7,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Actualizar información</title>
+        <title>Actualizar perfil</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/css/bootstrap.min.css"/>
@@ -87,50 +87,48 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <br></br><br></br><br></br>
-                        <h2>Actualizar la información del usuario C.C #{modificarUsuariosController.usuarioSeleccionado.noIdentificacion} Nombre: #{modificarUsuariosController.usuarioSeleccionado.nombre} #{modificarUsuariosController.usuarioSeleccionado.apellido}</h2>
+                        <h2>Actualizar información personal</h2>
+                        <h3> ID: C.C #{modificarUsuariosController.usuarioSession.noIdentificacion} Nombre: #{modificarUsuariosController.usuarioSession.nombre} #{modificarUsuariosController.usuarioSession.apellido}</h3>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h4><strong>*Recuerde que todos los campos pueden ser modificados*</strong></h4>
+                        <h4><strong>*Recuerde que los campos resaltados son lo únicos que se pueden modificar*</strong></h4>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-user"></i> Información del usuario </h3>
+                                <h3 class="panel-title"><i class="fa fa-user"></i> Información personal </h3>
                             </div>
                             <div class="panel-body">
-                                <b:message for="form-editar" showSummary="true" show-detail="true"/>
-                                <h:form prependId="false" id="form-editar">
+                                <b:message for="form-editar-perfil" showSummary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-editar-perfil">
                                     <b:panelGrid columns="1">
-                                        <b:label value="Rol: " style="font-size: 2vh;"/>
-                                        <h:selectManyCheckbox style="font-size: 2.5vh; margin-top: 1vh; color: #000;" value="#{modificarUsuariosController.usuarioSeleccionado.roles}"
-                                                              converter="rolConverter" layout="pageDirection">
-                                            <f:selectItems value="#{listarRolesController.roles}" var="r" itemLabel="#{r.nombreRol}" />
-                                        </h:selectManyCheckbox>
                                         <b:label value="Tipo identificación : " style="font-size: 2vh;"/>
-                                        <h:selectOneMenu class="form-control" style="margin-bottom: 2vh; border: 1px solid #337ab7;" converter="tipoIdentificacionConverter" id="idTipoIdentificacion" required="true" value="#{modificarUsuariosController.usuarioSession.tipoIdentificacion}" >
-                                            <f:selectItems value="#{listarTipoIdentificacionController.tiposIdentificacion}" var="ti" itemLabel="#{ti.nombreTipoIdentificacion}"/>
-                                        </h:selectOneMenu>
-                                        <b:label value="No. identificación : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.noIdentificacion}" value="#{modificarUsuariosController.usuarioSeleccionado.noIdentificacion}" style="border: 1px solid #337ab7"/>
-                                        <b:label value="Nombre : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.nombre}" value="#{modificarUsuariosController.usuarioSeleccionado.nombre}" style="border: 1px solid #337ab7" />
-                                        <b:label value="Apellido : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.apellido}" value="#{modificarUsuariosController.usuarioSeleccionado.apellido}" style="border: 1px solid #337ab7" />
-                                        <b:label value="Contraseña : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.contraseña}" value="#{modificarUsuariosController.usuarioSeleccionado.contraseña}" style="border: 1px solid #337ab7"/>
-                                        <b:label value="Correo eléctronico personal : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.correoElectronico}" value="#{modificarUsuariosController.usuarioSeleccionado.correoElectronico}" style="border: 1px solid #337ab7"/>
-                                        <b:label value="Correo eléctronico institucional : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}" value="#{modificarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}" style="border: 1px solid #337ab7" />
-                                        <b:label value="Dirección : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.direccion}" value="#{modificarUsuariosController.usuarioSeleccionado.direccion}" style="border: 1px solid #337ab7" />
-                                        <b:label value="Teléfono : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.telefono}" value="#{modificarUsuariosController.usuarioSeleccionado.telefono}" style="border: 1px solid #337ab7" />
-                                        <b:commandButton style="background-color: #E89100; border-color: #E89100; color: #fff; width: 15vw; height: 6vh;" value="Aplicar cambios" action="#{modificarUsuariosController.actulaizarInformacionUsuario()}"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.tipoIdentificacion.nombreTipoIdentificacion}" value="#{modificarUsuariosController.usuarioSession.tipoIdentificacion.nombreTipoIdentificacion}" disabled="true"/>
+                                        <b:label value="No. identificación :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.noIdentificacion}" value="#{modificarUsuariosController.usuarioSession.noIdentificacion}" disabled="true" />
+                                        <b:label value="Nombre :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.nombre}" value="#{modificarUsuariosController.usuarioSession.nombre}" disabled="true" />
+                                        <b:label value="Apellido :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.apellido}" value="#{modificarUsuariosController.usuarioSession.apellido}"  disabled="true"/>
+                                        <b:label value="Correo eléctronico personal :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.correoElectronico}" value="#{modificarUsuariosController.usuarioSession.correoElectronico}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Correo eléctronico institucional :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.correoElectronicoInstitucional}" value="#{modificarUsuariosController.usuarioSession.correoElectronicoInstitucional}"  style="border: 1px solid #337ab7"/>
+                                        <b:label value="Dirección :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.direccion}" value="#{modificarUsuariosController.usuarioSession.direccion}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Teléfono :" style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSession.telefono}" value="#{modificarUsuariosController.usuarioSession.telefono}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Rol del usuario :" style="font-size: 2vh;"/>
+                                        <h:selectManyCheckbox disabled="true" style="font-size: 2.5vh; margin-top: 1vh; color: #000;" value="#{modificarUsuariosController.usuarioSession.roles}"
+                                                 layout="pageDirection">
+                                            <f:selectItems value="#{modificarUsuariosController.usuarioSession.roles}" var="r" itemLabel="#{r.nombreRol}" />
+                                        </h:selectManyCheckbox>
+                                        
+                                        <b:commandButton style="background-color: #E89100; border-color: #E89100; color: #fff; width: 15vw; height: 6vh;" value="Aplicar cambios" action="#{modificarUsuariosController.actualizarPerfil()}"/>
                                     </b:panelGrid>
                                 </h:form>
-
+                                
                             </div>
                         </div>
                     </div>

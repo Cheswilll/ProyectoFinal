@@ -7,11 +7,13 @@ package com.usuarios.controllers;
 
 import com.DAO.UsuarioFacadeLocal;
 import com.entities.Usuario;
+import com.login.controllers.SessionController;
 import com.util.MessageUtil;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
 /**
  *
@@ -26,6 +28,11 @@ public class ModificarUsuariosController implements Serializable {
     
     private Usuario usuarioSeleccionado;
     
+    private Usuario usuarioSession;
+    
+    @Inject
+    private SessionController sc;
+    
     
     public ModificarUsuariosController() {
     }
@@ -37,6 +44,14 @@ public class ModificarUsuariosController implements Serializable {
     public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
         this.usuarioSeleccionado = usuarioSeleccionado;
     }
+
+    public Usuario getUsuarioSession() {
+        return usuarioSession = sc.getUsuario();
+    }
+
+    public void setUsuarioSession() {
+        this.usuarioSession = sc.getUsuario();
+    }
     
     public void actulaizarInformacionUsuario(){
         try {
@@ -44,6 +59,15 @@ public class ModificarUsuariosController implements Serializable {
             MessageUtil.enviarMensajeInformacion("form-editar", "Actualización", "Los datos del usuarios se han actualizado correctamente.");
         } catch (Exception e) {
             MessageUtil.enviarMensajeError("form-editar","Error al modificar los datos del usuario", "Error inesperado");
+        }
+    }
+    
+    public void actualizarPerfil(){
+        try {
+            ufl.edit(usuarioSession);
+            MessageUtil.enviarMensajeInformacion("form-editar-perfil", "Actualización", "Los datos del usuarios se han actualizado correctamente.");
+        } catch (Exception e) {
+            MessageUtil.enviarMensajeError("form-editar-perfil","Error al modificar los datos del usuario", "Error inesperado");
         }
     }
     

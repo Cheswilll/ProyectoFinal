@@ -49,7 +49,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         System.out.println("Ejecutando metodo buscar usuarios inactivos");
         Query q = em.createNativeQuery("SELECT u.* " +
                                 "FROM usuarios AS u join usuarioswithroles join roles " +
-                                "on u.noIdentificacion = usuarioswithroles.noIdentificacion AND usuarioswithroles.idRol  = roles.idRol AND u.estado=?;", Usuario.class);
+                                "on u.noIdentificacion = usuarioswithroles.noIdentificacion AND usuarioswithroles.idRol  = roles.idRol AND u.estado=? GROUP BY u.noIdentificacion;", Usuario.class);
         q.setParameter(1, 2);
         List<Usuario> usuarios = q.getResultList();
 
