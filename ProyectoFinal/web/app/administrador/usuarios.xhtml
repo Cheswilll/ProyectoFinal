@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/font-awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/local.css" />
-        <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/appResources/inicio/imgs/nintendo.png"/>
+        <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/appResources/inicio/imgs/Logo_EAN.png"/>
 
         <script src="#{request.contextPath}/resources/indexResources/js/jquery-1.11.1.min.js"></script>
         <script src="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/js/bootstrap.min.js"></script>
@@ -26,19 +26,25 @@
         <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/gridData.js"></script>
     </h:head>
     <h:body style="background-color:#F8F8F8">
+        <style>
+            #permisos:hover{
+                background-color: #000; color: #fff;
+            }
+        </style>
+
         <div id="wrapper" style=" padding-left: 200px">
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#918E8E; ">
-                 <div class="navbar-header">
+                <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-               
-                    <a class="navbar-brand" >
+
+                    <a class="navbar-brand " >
                         <h:form id="form-rol">
-                            <h:selectOneMenu class="form-control" style="color: #fff; background-color: #7AC398; margin-top: -1vh; margin-left: 13vw;"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
+                            <h:selectOneMenu class="form-control" style="color: #fff; background-color: #7AC398; margin-top: -1vh; margin-left: 13vw; border-color: #000;"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
                                 <f:selectItems value="#{sessionController.usuario.roles}" var="r"
                                                itemLabel="#{r.nombreRol}"/>
                                 <f:converter converterId="rolConverter"/>
@@ -48,16 +54,17 @@
                 </div>
                 <div  class="  navbar-ex1-collapse" style="margin-left: 30px;">
                     <div>
-                        <ul id="active" class=" nav side-nav" style="  background-color: #918E8E; width: 15vw" >
+
+                        <ul id="active" class=" nav navbar-nav side-nav" style="  background-color: #918E8E; width: 14vw; margin-left: -15vw; border-right: 1px solid #000;" >
                             <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/logo_ean_principal_vigilado_1.png" style="width: 8vw; height: 18vh; margin-left: 1.7vw"/></a>
-                            <li class="selected sobre" style="margin-top: 3vh; font-size: 19px; margin-top: 20vh;"><a href="#{request.contextPath}/app/inicio.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
+                            <li class="selected sobre" id="permisos" style="margin-top: 3vh; font-size: 19px; margin-top: 20vh;"><a href="#{request.contextPath}/app/inicio.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
                             <c:forEach items="#{sessionController.rolSeleccionado.permisos}" var="p">
-                                <li style="font-size: 19px;"><h:link  class="selected" style="color: #fff" outcome="/#{p.url}">#{p.nombre} </h:link></li>
+                                <li style="font-size: 19px;" id="permisos"><h:link  class="selected" style="color: #fff" outcome="/#{p.url}">#{p.nombre} </h:link></li>
                             </c:forEach>
                         </ul>
                     </div>
                     <ul class="nav navbar-nav navbar-right navbar-user">
-                        <li class="dropdown user-dropdown">
+                        <li class="dropdown user-dropdown" id="permisos">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff"><i class="fa fa-user" style="color:#fff"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
@@ -68,7 +75,7 @@
                         </li>
                         <li class="divider-vertical"></li>
                         <li>
-                            <li><a href="#"><i class="fa fa-power-off" style="color:#fff;"></i><font color="#fff"> Salir</font></a></li>
+                            <li style="margin-right: 2vw;" id="permisos"><a href="#"><i class="fa fa-power-off" style="color:#fff;"></i><font color="#fff"> Salir </font></a></li>
                         </li>
                     </ul>
                 </div>
@@ -109,12 +116,20 @@
                                                 <f:ajax event="click" render=":message-modal-confirm"
                                                         listener="#{listarUsuariosController.setUsuarioSeleccionado(u)}" />
                                             </b:commandButton>
+                                            <b:commandButton look="success" value=""
+                                                             iconAwesome="eye" tooltip="Ver más"
+                                                             onclick="$('.modalPseudoClassvermas').modal();">
+                                                <f:ajax event="click" render=":message-modal-vermas"
+                                                        listener="#{listarUsuariosController.setUsuarioSeleccionado(u)}" />
+                                            </b:commandButton>
+                                            <b:commandButton look="default" iconAwesome="#{listarUsuariosController.getIconUsuarioBloqueo(u)}" action="#{listarUsuariosController.cambioDeEstado(u)}"/>
+                                            
                                         </b:dataTableColumn>
 
                                     </b:dataTable>
                                 </b:form>
 
-                                <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
+                                <b:modal id="amodal" title="Eliminar usuario" styleClass="modalPseudoClass">
                                     <h:panelGroup id="message-modal-confirm" layout="block">
                                         <p>¿Está seguro de eliminar el usuario C.C #{listarUsuariosController.usuarioSeleccionado.noIdentificacion} Usuario: #{listarUsuariosController.usuarioSeleccionado.nombre} #{listarUsuariosController.usuarioSeleccionado.apellido} ?
                                         </p>
@@ -128,6 +143,8 @@
                                         </h:form>
                                     </f:facet>
                                 </b:modal>
+
+
                             </div>
                         </div>
                     </div>
@@ -152,11 +169,40 @@
                                         <b:dataTableColumn label="Tipo Identificación" value="#{u.tipoIdentificacion.nombreTipoIdentificacion}"/>
 
                                         <b:dataTableColumn label="Más" value="">
-                                            <b:commandButton look="success" iconAwesome="eye" action="#{verUsuarioController.verUsuario(u)}"/>
+                                            <b:commandButton look="success" value=""
+                                                             iconAwesome="eye" tooltip="Ver más"
+                                                             onclick="$('.modalPseudoClassvermas').modal();">
+                                                <f:ajax event="click" render=":message-modal-vermas"
+                                                        listener="#{listarUsuariosController.setUsuarioSeleccionado(u)}" />
+                                            </b:commandButton>
                                             <b:commandButton look="default" iconAwesome="#{modificarUsuariosController.getIconUsuarioBloqueo(u)}" action="#{modificarUsuariosController.cambioDeEstado(u)}"/>
                                         </b:dataTableColumn>
                                     </b:dataTable>
                                 </b:form>
+
+                                <b:modal id="vermas" title="Información del usuario" styleClass="modalPseudoClassvermas">
+                                    <h:panelGroup id="message-modal-vermas" layout="block">
+                                        <p><strong>Tipo identificación :</strong> #{listarUsuariosController.usuarioSeleccionado.tipoIdentificacion.nombreTipoIdentificacion}</p>
+                                        <p><strong>No. identificación :</strong> #{listarUsuariosController.usuarioSeleccionado.noIdentificacion} </p>
+                                        <p><strong>Nombre :</strong> #{listarUsuariosController.usuarioSeleccionado.nombre} </p>
+                                        <p><strong>Apellido :</strong> #{listarUsuariosController.usuarioSeleccionado.apellido} </p>
+                                        <p><strong>Correo personal :</strong> #{listarUsuariosController.usuarioSeleccionado.correoElectronico}</p>
+                                        <p><strong>Correo institucional :</strong> #{listarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}</p>
+                                        <p><strong>Estado :</strong> #{listarUsuariosController.estado} </p>
+                                        <p><strong>Dirección :</strong> #{listarUsuariosController.usuarioSeleccionado.direccion} </p>
+                                        <p><strong>Roles :</strong>  
+                                            <h:selectManyCheckbox disabled="true" style="font-size: 2.5vh; margin-top: 1vh; color: #000;" value="#{listarUsuariosController.usuarioSeleccionado.roles}"
+                                                 layout="pageDirection">
+                                                <f:selectItems value="#{listarUsuariosController.usuarioSeleccionado.roles}" var="r" itemLabel="#{r.nombreRol}" />
+                                            </h:selectManyCheckbox> </p>
+
+                                    </h:panelGroup>
+                                    <f:facet name="footer">
+                                        <h:form id="volver" prependId="false">
+                                            <b:button value="Close" dismiss="modal" />
+                                        </h:form>
+                                    </f:facet>
+                                </b:modal>
                             </div>
                         </div>
                     </div>
@@ -188,6 +234,9 @@
                                         <b:inputText p:placeholder="Teléfono" value="#{registrarUsuarioAdminController.usuarioNuevo.telefono}"/> 
                                         <h:selectOneMenu class="form-control"  id="estado" required="true" value="#{registrarUsuarioAdminController.estadoString}" >
                                             <f:selectItems value="#{listarEstadosController.estados}" var="est" itemLabel="#{est.toString()}"/>
+                                        </h:selectOneMenu>
+                                        <h:selectOneMenu class="form-control" style="margin-top: 2vh;"  id="rol" required="true" value="#{registrarUsuarioAdminController.rolString}" >
+                                            <f:selectItems value="#{listarRolesStringController.roles}" var="rol" itemLabel="#{rol.toString()}"/>
                                         </h:selectOneMenu>
                                         <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarUsuarioAdminController.registrarUsuario()}"/>
                                     </h:form>

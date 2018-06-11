@@ -1,16 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Actualizar información</title>
+        <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/local.css" />
+        <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/appResources/inicio/imgs/Logo_EAN.png"/>
+
+        <script src="#{request.contextPath}/resources/indexResources/js/jquery-1.11.1.min.js"></script>
+        <script src="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/all.min.css" />
+        <link id="gridcss" rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/dark.all.min.css" />
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/shieldui-all.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/gridData.js"></script>
+    </h:head>
+    <h:body style="background-color:#F8F8F8">
+        <style>
+            #permisos:hover{
+                background-color: #000; color: #fff;
+            }
+        </style>
+
+        <div id="wrapper" style=" padding-left: 200px">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#918E8E; ">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand " >
+                        <h:form id="form-rol">
+                            <h:selectOneMenu class="form-control" style="color: #fff; background-color: #7AC398; margin-top: -1vh; margin-left: 13vw; border-color: #000;"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
+                                <f:selectItems value="#{sessionController.usuario.roles}" var="r"
+                                               itemLabel="#{r.nombreRol}"/>
+                                <f:converter converterId="rolConverter"/>
+                            </h:selectOneMenu>
+                        </h:form> 
+                    </a>
+                </div>
+                <div  class="  navbar-ex1-collapse" style="margin-left: 30px;">
+                    <div>
+
+                        <ul id="active" class=" nav navbar-nav side-nav" style="  background-color: #918E8E; width: 14vw; margin-left: -15vw; border-right: 1px solid #000;" >
+                            <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/logo_ean_principal_vigilado_1.png" style="width: 8vw; height: 18vh; margin-left: 1.7vw"/></a>
+                            <li class="selected sobre" id="permisos" style="margin-top: 3vh; font-size: 19px; margin-top: 20vh;"><a href="#{request.contextPath}/app/inicio.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
+                            <c:forEach items="#{sessionController.rolSeleccionado.permisos}" var="p">
+                                <li style="font-size: 19px;" id="permisos"><h:link  class="selected" style="color: #fff" outcome="/#{p.url}">#{p.nombre} </h:link></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right navbar-user">
+                        <li class="dropdown user-dropdown" id="permisos">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff"><i class="fa fa-user" style="color:#fff"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
+                                <li><a href="#"><i class="fa fa-gear"></i> Ajustes </a></li>
+                                <!-- <li class="divider"></li> -->
+
+                            </ul>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <li style="margin-right: 2vw;" id="permisos"><a href="#"><i class="fa fa-power-off" style="color:#fff;"></i><font color="#fff"> Salir </font></a></li>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="page-wrapper">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br></br><br></br><br></br>
+                        <h2>Actualizar la información del usuario C.C #{modificarUsuariosController.usuarioSeleccionado.noIdentificacion} Nombre: #{modificarUsuariosController.usuarioSeleccionado.nombre} #{modificarUsuariosController.usuarioSeleccionado.apellido}</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4><strong>*Recuerde que los campos en rojo son lo únicos que se pueden modificar*</strong></h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user"></i> Información del usuario </h3>
+                            </div>
+                            <div class="panel-body">
+                                <b:message for="form-editar" showSummary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-editar">
+                                    <b:panelGrid columns="1">
+                                        <b:label value="Rol: " style="font-size: 2vh;"/>
+                                        <h:selectManyCheckbox style="font-size: 2.5vh; margin-top: 1vh; color: #000;" value="#{modificarUsuariosController.usuarioSeleccionado.roles}"
+                                                              converter="rolConverter" layout="pageDirection">
+                                            <f:selectItems value="#{listarRolesController.roles}" var="r" itemLabel="#{r.nombreRol}" />
+                                        </h:selectManyCheckbox>
+                                        <b:label value="Tipo identificación : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.tipoIdentificacion.nombreTipoIdentificacion}" value="#{modificarUsuariosController.usuarioSeleccionado.tipoIdentificacion.nombreTipoIdentificacion}" disabled="true"/>
+                                        <b:label value="No. identificación : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.noIdentificacion}" value="#{modificarUsuariosController.usuarioSeleccionado.noIdentificacion}" disabled="true"/>
+                                        <b:label value="Nombre : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.nombre}" value="#{modificarUsuariosController.usuarioSeleccionado.nombre}" disabled="true"/>
+                                        <b:label value="Apellido : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.apellido}" value="#{modificarUsuariosController.usuarioSeleccionado.apellido}" disabled="true"/>
+                                        <b:label value="Contraseña : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.contraseña}" value="#{modificarUsuariosController.usuarioSeleccionado.contraseña}" style="border: 1px solid red"/>
+                                        <b:label value="Correo eléctronico personal : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.correoElectronico}" value="#{modificarUsuariosController.usuarioSeleccionado.correoElectronico}" style="border: 1px solid red"/>
+                                        <b:label value="Correo eléctronico institucional : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}" value="#{modificarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}" style="border: 1px solid red" />
+                                        <b:label value="Dirección : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.direccion}" value="#{modificarUsuariosController.usuarioSeleccionado.direccion}" style="border: 1px solid red" />
+                                        <b:label value="Teléfono : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarUsuariosController.usuarioSeleccionado.telefono}" value="#{modificarUsuariosController.usuarioSeleccionado.telefono}" style="border: 1px solid red" />
+                                        <b:commandButton style="background-color: #E89100; border-color: #E89100; color: #fff; width: 15vw; height: 6vh;" value="Aplicar cambios" action="#{modificarUsuariosController.actulaizarInformacionUsuario()}"/>
+                                    </b:panelGrid>
+                                </h:form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user"></i> TITULO </h3>
+                            </div>
+                            <div class="panel-body">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                -->
+            </div>
+        </div>
+
+    </h:body>
 </html>
+

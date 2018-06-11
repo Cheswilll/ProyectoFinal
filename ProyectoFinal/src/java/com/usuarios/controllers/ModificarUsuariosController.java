@@ -38,12 +38,12 @@ public class ModificarUsuariosController implements Serializable {
         this.usuarioSeleccionado = usuarioSeleccionado;
     }
     
-    public void actulaizarDatos(){
+    public void actulaizarInformacionUsuario(){
         try {
             ufl.edit(usuarioSeleccionado);
             MessageUtil.enviarMensajeInformacion("form-editar", "Actualización", "Los datos del usuarios se han actualizado correctamente.");
         } catch (Exception e) {
-            MessageUtil.enviarMensajeErrorGlobal("Error al modificar los datos del usuario", e.getStackTrace().toString());
+            MessageUtil.enviarMensajeError("form-editar","Error al modificar los datos del usuario", "Error inesperado");
         }
     }
     
@@ -51,6 +51,7 @@ public class ModificarUsuariosController implements Serializable {
         setUsuarioSeleccionado(u);
         return "/vistasSinProteccion/administrador/actualizarInformacionUsuario.xhtml?faces-redirect=true";
     }
+    
     
     public void cambioDeEstado(Usuario u){
         try {

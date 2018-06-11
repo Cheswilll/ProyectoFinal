@@ -41,6 +41,7 @@ public class ListarUsuariosController implements Serializable {
     @PostConstruct
     public void init() {
         listarUsuarios();
+        listarUsuariosInactivos();
     }
 
     public List<Usuario> getUsuarios() {
@@ -75,8 +76,6 @@ public class ListarUsuariosController implements Serializable {
         this.usuariosInactivos = usuariosInactivos;
     }
     
-    
-    
     public void listarUsuarios() {
         usuarios = ufl.findAll();
     }
@@ -94,14 +93,34 @@ public class ListarUsuariosController implements Serializable {
         return estado;
     }
     
-    public void eliminarPersona(){
+    public void eliminarUsuario(){
     Usuario usuarioSession = sc.getUsuario();
         if (usuarioSession.getNoIdentificacion().intValue() != usuarioSeleccionado.getNoIdentificacion()) {
             ufl.remove(usuarioSeleccionado);
             listarUsuarios();
+            MessageUtil.enviarMensajeError("tabla_usuarios", "Eliminación exitosa", "Se ha eliminado");
         }else{
-            MessageUtil.enviarMensajeError(null, "Error", "No se puede eliminar usted mismo");
+            MessageUtil.enviarMensajeError("tabla_usuarios", "Error", "No se puede eliminar usted mismo");
         }
+    }
+    
+    public void cambioDeEstado(Usuario u){
+        try {
+            if (u.getEstado() == 1) {
+                u.setEstado(2);
+            } else {
+                u.setEstado(1);
+            }
+            ufl.edit(u);
+            MessageUtil.enviarMensajeInformacion("tabla_usuarios", "Actualización", "Se ha cambiado el estado del usuario.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageUtil.enviarMensajeError("tabla_usuarios","Error al cambiar el estado", "Error desconocido");
+        }   
+    }
+    
+    public String getIconUsuarioBloqueo(Usuario u){
+        return (u.getEstado() == 1) ? "lock": "unlock";
     }
     
 
