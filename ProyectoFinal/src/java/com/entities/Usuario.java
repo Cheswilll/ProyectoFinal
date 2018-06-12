@@ -69,10 +69,20 @@ public class Usuario implements Serializable {
         @JoinColumn(name = "idRol", referencedColumnName = "idRol")})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
-    @OneToMany(mappedBy = "noIdentificacion", fetch = FetchType.LAZY)
+    
+    
+    @JoinTable(name = "usuarioswithpresentaciones", joinColumns = {
+        @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")}, inverseJoinColumns = {
+        @JoinColumn(name = "idPresentacion", referencedColumnName = "idPresentacion")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Presentacion> presentaciones;
-    @OneToMany(mappedBy = "noIdentificacion", fetch = FetchType.LAZY)
+    
+    @JoinTable(name = "usuarioswithproyectos", joinColumns = {
+        @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")}, inverseJoinColumns = {
+        @JoinColumn(name = "idProyecto", referencedColumnName = "idProyecto")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Proyecto> proyectos;
+    
     @JoinColumn(name = "tipoIdentificacion", referencedColumnName = "idTipoIdentificacion")
     @ManyToOne(fetch = FetchType.LAZY)
     private TipoIdentificacion tipoIdentificacion;

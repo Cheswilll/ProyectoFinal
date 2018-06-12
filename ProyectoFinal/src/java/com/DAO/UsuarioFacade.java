@@ -60,5 +60,22 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         
         return usuarios;
     }
+
+    @Override
+    public List<Usuario> usuariosEstudiantes() {
+        System.out.println("Ejecutando metodo buscar usuarios estudiantes");
+        Query q = em.createNativeQuery("SELECT u.* " +
+                                "FROM usuarios AS u join usuarioswithroles join roles " +
+                                "on u.noIdentificacion = usuarioswithroles.noIdentificacion AND usuarioswithroles.idRol  = roles.idRol AND roles.idRol=? GROUP BY u.noIdentificacion;", Usuario.class);
+        q.setParameter(1, 3);
+        List<Usuario> usuarios = q.getResultList();
+
+        for (Usuario u : usuarios) {
+            System.out.println("Listando usuarios Estudiantes");
+        }
+        System.out.println(usuarios);
+        
+        return usuarios;
+    }
     
 }

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title> Presentaciones </title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/local.css" />
+        <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/appResources/inicio/imgs/Logo_EAN.png"/>
+
+        <script src="#{request.contextPath}/resources/indexResources/js/jquery-1.11.1.min.js"></script>
+        <script src="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/all.min.css" />
+        <link id="gridcss" rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/appResources/inicio/css/dark.all.min.css" />
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/shieldui-all.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/appResources/inicio/js/gridData.js"></script>
+    </h:head>
+    <h:body style="background-color:#F8F8F8">
+        <style>
+            #permisos:hover{
+                background-color: #000; color: #fff;
+            }
+        </style>
+
+        <div id="wrapper" style=" padding-left: 200px">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#918E8E; ">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand " >
+                        <h:form id="form-rol">
+                            <h:selectOneMenu class="form-control" style="color: #fff; background-color: #7AC398; margin-top: -1vh; margin-left: 13vw; border-color: #000;"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
+                                <f:selectItems value="#{sessionController.usuario.roles}" var="r"
+                                               itemLabel="#{r.nombreRol}"/>
+                                <f:converter converterId="rolConverter"/>
+                            </h:selectOneMenu>
+                        </h:form> 
+                    </a>
+                </div>
+                <div  class="  navbar-ex1-collapse" style="margin-left: 30px;">
+                    <div>
+
+                        <ul id="active" class=" nav navbar-nav side-nav" style="  background-color: #918E8E; width: 14vw; margin-left: -15vw; border-right: 1px solid #000;" >
+                            <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/logo_ean_principal_vigilado_1.png" style="width: 8vw; height: 18vh; margin-left: 1.7vw"/></a>
+                            <li class="selected sobre" id="permisos" style="margin-top: 3vh; font-size: 19px; margin-top: 20vh;"><a href="#{request.contextPath}/app/inicio.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
+                            <c:forEach items="#{sessionController.rolSeleccionado.permisos}" var="p">
+                                <li style="font-size: 19px;" id="permisos"><h:link  class="selected" style="color: #fff" outcome="/#{p.url}">#{p.nombre} </h:link></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right navbar-user">
+                        <li class="dropdown user-dropdown" id="permisos">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff"><i class="fa fa-user" style="color:#fff"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
+                                <!-- <li class="divider"></li> -->
+
+                            </ul>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <h:form>
+                                <li style="margin-right: 1vw;"><b:commandButton value="Salir" style="margin-top: 1vh; margin-right: 0.5vw; background-color: transparent; border-color: transparent; color: #fff;" icon-awesome="fas fa-power-off" action="#{sessionController.cerrarSesion()}"/> </li>
+                            </h:form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="page-wrapper">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br></br><br></br><br></br>
+                        <h2> Presentaciones registradas </h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-users"></i> Presentaciones registradas </h3>
+                            </div>
+                            <div class="panel-body">
+                                <b:message for="tabla_presentaciones" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="tabla_presentaciones">
+                                    <b:dataTable value="#{listarPresentacionesController.presentaciones}" var="ps" style="background: #fff; color: #000;">
+                                        <b:dataTableColumn label="Nombre de la presentación" value="#{ps.nombrePresentacion}"/>
+                                        <b:dataTableColumn label="Fecha registro de presentación" value="#{ps.fechaPresentacion}"/>
+                                        <b:dataTableColumn label="Descripción" value="#{ps.descripcionPresentacion}"/>
+                                        <b:dataTableColumn label="Estado de la presentación" value="#{listarPresentacionesController.validarEstadoPresentacion(ps.estadoPresentacion)}"/>
+                                        <b:dataTableColumn label="Nota" value="#{ps.nota}"/>
+                                        <b:dataTableColumn label="Cantidad de estudiantes" value="#{ps.cantidadEstudiantes}"/>
+                                        <b:dataTableColumn label="Más" value="">
+                                            <b:commandButton look="primary" iconAwesome="pencil" action="#{modificarProyectosController.preModificarProyecto(pr)}"/>
+                                            <b:commandButton look="success" value=""
+                                                             iconAwesome="eye" tooltip="Ver más"
+                                                             onclick="$('.modalPseudoClassvermas').modal();">
+                                                <f:ajax event="click" render=":message-modal-vermas"
+                                                        listener="#{listarPresentacionesController.setPresentacionSeleccionada(ps)}" />
+                                            </b:commandButton>
+                                        </b:dataTableColumn>
+
+                                    </b:dataTable>
+                                </h:form>
+
+                                <b:modal id="vermas" title="Información de la presentación" styleClass="modalPseudoClassvermas">
+                                    <h:panelGroup id="message-modal-vermas" layout="block">
+                                        <h:form>
+                                            <p><strong>Nombre de la presentación :</strong> #{listarPresentacionesController.presentacionSeleccionada.nombrePresentacion}</p>
+                                            <p><strong>Fecha de registro :</strong> #{listarPresentacionesController.presentacionSeleccionada.fechaPresentacion} </p>
+                                            <p><strong>Descripción :</strong> #{listarPresentacionesController.presentacionSeleccionada.descripcionPresentacion} </p>
+                                            <p><strong>Estado :</strong> #{listarPresentacionesController.estadoPresentacion} </p>
+                                            <p><strong>Nota :</strong> #{listarPresentacionesController.presentacionSeleccionada.nota}</p>
+                                            <p><strong>Cantidad de estudiantes :</strong> #{listarPresentacionesController.presentacionSeleccionada.cantidadEstudiantes}</p>
+                                            <p><strong>Estudiantes asignados a la presentación :</strong> ESTUDIANTES </p>
+                                        </h:form>
+                                    </h:panelGroup>
+                                    <f:facet name="footer">
+                                        <h:form id="volver" prependId="false">
+                                            <b:button value="Close" dismiss="modal" />
+                                        </h:form>
+                                    </f:facet>
+                                </b:modal>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-book"></i> Registrar presentación </h3>
+                            </div>
+                            <div class="panel-body">
+                                <b:message for="form-crear-presentacion" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-crear-presentacion">
+                                    <b:inputText p:placeholder="Nombre presentación" style="" value="#{registrarPresentacionController.nuevaPresentacion.nombrePresentacion}"/>
+                                    <b:inputText p:placeholder="Fecha presentación" style="" value="#{registrarPresentacionController.nuevaPresentacion.fechaPresentacion}"/>
+                                    <b:inputText p:placeholder="Descripción de la presentación" value="#{registrarPresentacionController.nuevaPresentacion.descripcionPresentacion}"/>
+                                    <b:inputText p:placeholder="Cantidad de estudiantes" value="#{registrarPresentacionController.nuevaPresentacion.cantidadEstudiantes}"/>
+                                    <b:inputText p:placeholder="Nota" value="#{registrarPresentacionController.nuevaPresentacion.nota}"/>
+                                    <h:selectOneMenu class="form-control"  id="estadoPresentacion" required="true" value="#{registrarPresentacionController.estadoPresentacion}" >
+                                        <f:selectItems value="#{listarEstadosPresentacionController.estadosPresentacion}" var="etpr" itemLabel="#{etpr.toString()}"/>
+                                    </h:selectOneMenu>
+
+                                    <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarPresentacionController.registrarPresentacion()}"/>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-times-circle"></i> Proyectos cerrados </h3>
+                            </div>
+                            <div class="panel-body">
+                                <b:message for="tabla_presentaciones_cerradas" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="tabla_presentaciones_cerradas">
+                                    <b:dataTable value="#{listarPresentacionesController.presentacionesCerradas}" var="pc" style="background: #fff; color: #000;">
+                                        <b:dataTableColumn label="Nombre de la presentación" value="#{pc.nombrePresentacion}"/>
+                                        <b:dataTableColumn label="Estado Presentación" value="#{listarPresentacionesController.validarEstadoPresentacion(pc.estadoPresentacion)}"/>
+                                        <b:dataTableColumn label="Descripción de la presentacion" value="#{pc.descripcionPresentacion}"/>
+                                        <b:dataTableColumn label="Más" value="">
+                                            <b:commandButton look="success" value=""
+                                                             iconAwesome="eye" tooltip="Ver más"
+                                                             onclick="$('.modalPseudoClassvermas').modal();">
+                                                <f:ajax event="click" render=":message-modal-vermas"
+                                                        listener="#{listarPresentacionesController.setPresentacionSeleccionada(pc)}" />
+                                            </b:commandButton>
+                                            <b:commandButton look="danger" value=""
+                                                             iconAwesome="trash" tooltip="Eliminar"
+                                                             onclick="$('.modalPseudoClass').modal();">
+                                                <f:ajax event="click" render=":message-modal-confirm"
+                                                        listener="#{listarPresentacionesController.setPresentacionSeleccionada(pc)}" />
+                                            </b:commandButton>
+                                        </b:dataTableColumn>
+
+                                    </b:dataTable>
+                                </h:form>
+
+                                <b:modal id="amodal" title="Eliminar proyecto" styleClass="modalPseudoClass">
+                                    <h:panelGroup id="message-modal-confirm" layout="block">
+                                        <p>¿Está seguro de eliminar ela presentación : #{listarPresentacionesController.presentacionSeleccionada.nombrePresentacion} ?
+                                        </p>
+                                    </h:panelGroup>
+                                    <f:facet name="footer">
+                                        <h:form id="form-eliminar" prependId="false">
+                                            <b:button value="Close" dismiss="modal" />
+                                            <b:commandButton value="Ok" look="primary"
+                                                             actionListener="#{listarPresentacionesController.eliminarPresentacion()}"/>
+                                        </h:form>
+                                    </f:facet>
+                                </b:modal>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +15,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -54,9 +58,12 @@ public class Proyecto implements Serializable {
     private Integer cantidadGrupos;
     @Column(name = "descripcionProyecto")
     private String descripcionProyecto;
-    @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario noIdentificacion;
+    
+    @ManyToMany(mappedBy = "proyectos", fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
+    
+    @OneToMany(mappedBy = "idProyecto", fetch = FetchType.LAZY)
+    private List<Grupo> grupos;
 
     public Proyecto() {
     }
@@ -104,15 +111,7 @@ public class Proyecto implements Serializable {
     public void setDescripcionProyecto(String descripcionProyecto) {
         this.descripcionProyecto = descripcionProyecto;
     }
-
-    public Usuario getNoIdentificacion() {
-        return noIdentificacion;
-    }
-
-    public void setNoIdentificacion(Usuario noIdentificacion) {
-        this.noIdentificacion = noIdentificacion;
-    }
-
+    
     public Integer getCantidadEstudiantes() {
         return cantidadEstudiantes;
     }
@@ -128,9 +127,27 @@ public class Proyecto implements Serializable {
     public void setCantidadGrupos(Integer cantidadGrupos) {
         this.cantidadGrupos = cantidadGrupos;
     }
-    
-    
 
+    @XmlTransient
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    @XmlTransient
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -153,8 +170,11 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "Proyecto{" + "idProyecto=" + idProyecto + ", nombreProyecto=" + nombreProyecto + ", estadoProyecto=" + estadoProyecto + ", fechaProyecto=" + fechaProyecto + ", cantidadEstudiantes=" + cantidadEstudiantes + ", cantidadGrupos=" + cantidadGrupos + ", descripcionProyecto=" + descripcionProyecto + ", noIdentificacion=" + noIdentificacion + '}';
+        return "Proyecto{" + "idProyecto=" + idProyecto + ", nombreProyecto=" + nombreProyecto + ", estadoProyecto=" + estadoProyecto + ", fechaProyecto=" + fechaProyecto + ", cantidadEstudiantes=" + cantidadEstudiantes + ", cantidadGrupos=" + cantidadGrupos + ", descripcionProyecto=" + descripcionProyecto + ", usuarios=" + usuarios + '}';
     }
+
+   
+    
 
     
 

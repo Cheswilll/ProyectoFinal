@@ -7,7 +7,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title> Inicio </title>
+        <title>Actualizar información</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/indexResources/frameworks/bootstrap/css/bootstrap.min.css"/>
@@ -31,7 +31,7 @@
                 background-color: #000; color: #fff;
             }
         </style>
-        
+
         <div id="wrapper" style=" padding-left: 200px">
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#918E8E; ">
                 <div class="navbar-header">
@@ -41,8 +41,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-               
-                    <a class="navbar-brand" >
+
+                    <a class="navbar-brand " >
                         <h:form id="form-rol">
                             <h:selectOneMenu class="form-control" style="color: #fff; background-color: #7AC398; margin-top: -1vh; margin-left: 13vw; border-color: #000;"  value="#{sessionController.rolSeleccionado}" onchange="submit();">
                                 <f:selectItems value="#{sessionController.usuario.roles}" var="r"
@@ -52,20 +52,20 @@
                         </h:form> 
                     </a>
                 </div>
-                <div class="  navbar-ex1-collapse" style="margin-left: 30px;">
-                   
+                <div  class="  navbar-ex1-collapse" style="margin-left: 30px;">
                     <div>
-                        <ul id="active" class="nav navbar-nav side-nav" style="  background-color: #918E8E; width: 14vw; border-right: 1px solid #000; margin-left: -15vw;" >
-                             <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/logo_ean_principal_vigilado_1.png" style="width: 8vw; height: 18vh; margin-left: 1.7vw"/></a>
-                             <li class="selected sobre" id="permisos" style="margin-top: 3vh; font-size: 19px; margin-top: 15vh;"><a href="#{request.contextPath}/index.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
+
+                        <ul id="active" class=" nav navbar-nav side-nav" style="  background-color: #918E8E; width: 14vw; margin-left: -15vw; border-right: 1px solid #000;" >
+                            <a class="navbar-brand" href="index.html"><img src="#{request.contextPath}/resources/appResources/inicio/imgs/logo_ean_principal_vigilado_1.png" style="width: 8vw; height: 18vh; margin-left: 1.7vw"/></a>
+                            <li class="selected sobre" id="permisos" style="margin-top: 3vh; font-size: 19px; margin-top: 20vh;"><a href="#{request.contextPath}/app/inicio.xhtml"><i class="fa fa-home" style="color: #fff;"></i><font color="#fff"> Inicio </font> </a></li>
                             <c:forEach items="#{sessionController.rolSeleccionado.permisos}" var="p">
                                 <li style="font-size: 19px;" id="permisos"><h:link  class="selected" style="color: #fff" outcome="/#{p.url}">#{p.nombre} </h:link></li>
                             </c:forEach>
                         </ul>
                     </div>
                     <ul class="nav navbar-nav navbar-right navbar-user">
-                        <li class="dropdown user-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  style="color:#fff"><i class="fa fa-user" style="color:#fff"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
+                        <li class="dropdown user-dropdown" id="permisos">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff"><i class="fa fa-user" style="color:#fff"></i> #{sessionController.usuario.nombre} #{sessionController.usuario.apellido} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
                                 <!-- <li class="divider"></li> -->
@@ -82,46 +82,63 @@
                 </div>
             </nav>
 
-            <div id="page-wrapper" style="margin-left: 2vw; width: 80vw; margin-top: 5vh;">
+            <div id="page-wrapper">
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <br></br>
-                        <h1 style="color:#000;"> ¡Bienvenido! #{sessionController.usuario.nombre} #{sessionController.usuario.apellido}</h1>
-                        <br></br>
-                        <img src="#{request.contextPath}/resources/appResources/inicio/imgs/pregrado-en-ing-de-sistemas-presencial.jpg" style="width: 78vw; height: 50vh;"/>
                         <br></br><br></br><br></br>
-                        <p style="color:#000; font-size: 18px">
-                            En esta página encontrarás toda la información correspondiente a los nuevos
-                            eventos y actividades que se llevarán a cabo en la Universidad EAN que te 
-                           podrán ayudar para reforzar tus conocimientos en Programación Avanzada
-                    </p>
-                        <br></br><br></br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <a style="color:#414766; font-size: 20px" href="https://universidadean.edu.co/es/eventos/martes-de-ingenieria-tecnologia-junio"  target="_blank">
-                                    <u><i>Martes de Ingeniería: Tecnología (junio)</i></u></a>
-                                <br></br><br></br> 
-                                <img src="#{request.contextPath}/resources/appResources/inicio/imgs/martes-de-ingenieria-tecnologia-junio-principal.jpg" style="width: 25vw; height: 25vh;"/>
-                                <br></br><br></br>
-                                <p style="color:#5D5D5D">Evita que los ciberdelincuentes roben información clave para <br></br> las empresas y personas.</p>
+                        <h2>Actualizar la información del proyecto C.C #{modificarProyectosController.proyectoSeleccionado.nombreProyecto} </h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4><strong>*Recuerde que todos los campos pueden ser modificados*</strong></h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user"></i> Información del proyecto </h3>
                             </div>
-                            <div class="col-md-6">
-                                
-                                <a style="color:#414766; font-size: 20px" href="https://universidadean.edu.co/es/noticias/claves-sobre-ciberseguridad-que-todo-emprendedor-debe-saber "  target="_blank">
-                                    <u><i>Claves Sobre Ciberseguridad
-                                        Que Todo <br></br> Emprendedor Debe Saber</i></u></a>
-                                <br></br><br></br>
-                                 <img src="#{request.contextPath}/resources/appResources/inicio/imgs/claves-sobre-ciberseguridad.jpg" style="width: 25vw; height: 25vh;"/>
-                                 <br></br><br></br>
-                                 <p style="color:#5D5D5D">El pasado jueves 31 de mayo, la Universidad EAN fue la <br></br> única institución latinoamericana que participó en el <br></br> Cybersecurity Revolution.</p>
+                            <div class="panel-body">
+                                <b:message for="form-editar-proyecto" showSummary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-editar-proyecto">
+                                    <b:panelGrid columns="1">
+                                        <b:label value="Nombre proyecto : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.nombreProyecto}" value="#{modificarProyectosController.proyectoSeleccionado.nombreProyecto}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Fecha creación del proyecto : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.fechaProyecto}" value="#{modificarProyectosController.proyectoSeleccionado.fechaProyecto}" disabled="true" />
+                                        <b:label value="Descripción del proyecto : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.descripcionProyecto}" value="#{modificarProyectosController.proyectoSeleccionado.descripcionProyecto}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Cantidad de estudiantes : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.cantidadEstudiantes}" value="#{modificarProyectosController.proyectoSeleccionado.cantidadEstudiantes}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Cantidad de grupos : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.cantidadGrupos}" value="#{modificarProyectosController.proyectoSeleccionado.cantidadGrupos}" style="border: 1px solid #337ab7" />
+                                        
+                                        <b:commandButton style="background-color: #E89100; border-color: #E89100; color: #fff; width: 15vw; height: 6vh;" value="Aplicar cambios" action="#{modificarProyectosController.actulaizarInformacionProyecto()}"/>
+                                    </b:panelGrid>
+                                </h:form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user"></i> TITULO </h3>
+                            </div>
+                            <div class="panel-body">
                                 
                             </div>
                         </div>
+                    </div>
+
                 </div>
+                -->
             </div>
         </div>
-    </div>
 
-</h:body>
+    </h:body>
 </html>
+

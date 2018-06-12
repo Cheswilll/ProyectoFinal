@@ -30,4 +30,10 @@ public interface PresentacionFacadeLocal {
 
     int count();
     
+    List<Presentacion> presentacionesCerradas();
+    
+    List<Presentacion> presentacionesDisponibles();
+    
+    void registrarPresentacion(int idPresentacion, Long noIdentificacion);
+    
 }

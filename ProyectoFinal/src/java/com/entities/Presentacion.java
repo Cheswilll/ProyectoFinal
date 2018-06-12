@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +15,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -54,9 +57,9 @@ public class Presentacion implements Serializable {
     private Integer nota;
     @Column(name = "cantidadEstudiantes")
     private Integer cantidadEstudiantes;
-    @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario noIdentificacion;
+    
+    @ManyToMany(mappedBy = "presentaciones", fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
 
     public Presentacion() {
     }
@@ -105,14 +108,6 @@ public class Presentacion implements Serializable {
         this.estadoPresentacion = estadoPresentacion;
     }
 
-    public Usuario getNoIdentificacion() {
-        return noIdentificacion;
-    }
-
-    public void setNoIdentificacion(Usuario noIdentificacion) {
-        this.noIdentificacion = noIdentificacion;
-    }
-
     public Integer getNota() {
         return nota;
     }
@@ -128,6 +123,16 @@ public class Presentacion implements Serializable {
     public void setCantidadEstudiantes(Integer cantidadEstudiantes) {
         this.cantidadEstudiantes = cantidadEstudiantes;
     }
+
+    @XmlTransient
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+    
     
     
 
@@ -153,8 +158,12 @@ public class Presentacion implements Serializable {
 
     @Override
     public String toString() {
-        return "Presentacion{" + "idPresentacion=" + idPresentacion + ", nombrePresentacion=" + nombrePresentacion + ", fechaPresentacion=" + fechaPresentacion + ", descripcionPresentacion=" + descripcionPresentacion + ", estadoPresentacion=" + estadoPresentacion + ", nota=" + nota + ", cantidadEstudiantes=" + cantidadEstudiantes + ", noIdentificacion=" + noIdentificacion + '}';
+        return "Presentacion{" + "idPresentacion=" + idPresentacion + ", nombrePresentacion=" + nombrePresentacion + ", fechaPresentacion=" + fechaPresentacion + ", descripcionPresentacion=" + descripcionPresentacion + ", estadoPresentacion=" + estadoPresentacion + ", nota=" + nota + ", cantidadEstudiantes=" + cantidadEstudiantes + ", usuarios=" + usuarios + '}';
     }
+    
+    
+
+   
 
     
 

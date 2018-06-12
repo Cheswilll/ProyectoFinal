@@ -30,4 +30,8 @@ public interface ProyectoFacadeLocal {
 
     int count();
     
+    List<Proyecto> proyectosCerrados();
+    
+    List<Proyecto> proyectosDisponibles();
+    
 }

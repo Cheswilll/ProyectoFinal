@@ -124,7 +124,7 @@
                                                         listener="#{listarUsuariosController.setUsuarioSeleccionado(u)}" />
                                             </b:commandButton>
                                             <b:commandButton look="default" iconAwesome="#{listarUsuariosController.getIconUsuarioBloqueo(u)}" action="#{listarUsuariosController.cambioDeEstado(u)}"/>
-                                            
+
                                         </b:dataTableColumn>
 
                                     </b:dataTable>
@@ -182,22 +182,23 @@
                                 </b:form>
 
                                 <b:modal id="vermas" title="Información del usuario" styleClass="modalPseudoClassvermas">
-                                    <h:panelGroup id="message-modal-vermas" layout="block">
-                                        <p><strong>Tipo identificación :</strong> #{listarUsuariosController.usuarioSeleccionado.tipoIdentificacion.nombreTipoIdentificacion}</p>
-                                        <p><strong>No. identificación :</strong> #{listarUsuariosController.usuarioSeleccionado.noIdentificacion} </p>
-                                        <p><strong>Nombre :</strong> #{listarUsuariosController.usuarioSeleccionado.nombre} </p>
-                                        <p><strong>Apellido :</strong> #{listarUsuariosController.usuarioSeleccionado.apellido} </p>
-                                        <p><strong>Correo personal :</strong> #{listarUsuariosController.usuarioSeleccionado.correoElectronico}</p>
-                                        <p><strong>Correo institucional :</strong> #{listarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}</p>
-                                        <p><strong>Estado :</strong> #{listarUsuariosController.estado} </p>
-                                        <p><strong>Dirección :</strong> #{listarUsuariosController.usuarioSeleccionado.direccion} </p>
-                                        <p><strong>Roles :</strong>  
-                                            <h:selectManyCheckbox disabled="true" style="font-size: 2.5vh; margin-top: 1vh; color: #000;" value="#{listarUsuariosController.usuarioSeleccionado.roles}"
-                                                 layout="pageDirection">
-                                                <f:selectItems value="#{listarUsuariosController.usuarioSeleccionado.roles}" var="r" itemLabel="#{r.nombreRol}" />
-                                            </h:selectManyCheckbox> </p>
-
-                                    </h:panelGroup>
+                                        <h:panelGroup id="message-modal-vermas" layout="block">
+                                            <h:form>
+                                            <p><strong>Tipo identificación :</strong> #{listarUsuariosController.usuarioSeleccionado.tipoIdentificacion.nombreTipoIdentificacion}</p>
+                                            <p><strong>No. identificación :</strong> #{listarUsuariosController.usuarioSeleccionado.noIdentificacion} </p>
+                                            <p><strong>Nombre :</strong> #{listarUsuariosController.usuarioSeleccionado.nombre} </p>
+                                            <p><strong>Apellido :</strong> #{listarUsuariosController.usuarioSeleccionado.apellido} </p>
+                                            <p><strong>Correo personal :</strong> #{listarUsuariosController.usuarioSeleccionado.correoElectronico}</p>
+                                            <p><strong>Correo institucional :</strong> #{listarUsuariosController.usuarioSeleccionado.correoElectronicoInstitucional}</p>
+                                            <p><strong>Estado :</strong> #{listarUsuariosController.estado} </p>
+                                            <p><strong>Dirección :</strong> #{listarUsuariosController.usuarioSeleccionado.direccion} </p>
+                                            <p><strong>Roles :</strong>  
+                                                <h:selectManyCheckbox disabled="true" style="font-size: 2.5vh; margin-top: 1vh; color: #000;" value="#{listarUsuariosController.usuarioSeleccionado.roles}"
+                                                                      layout="pageDirection">
+                                                    <f:selectItems value="#{listarUsuariosController.usuarioSeleccionado.roles}" var="r" itemLabel="#{r.nombreRol}" />
+                                                </h:selectManyCheckbox> </p>
+                                            </h:form>
+                                        </h:panelGroup>
                                     <f:facet name="footer">
                                         <h:form id="volver" prependId="false">
                                             <b:button value="Close" dismiss="modal" />
