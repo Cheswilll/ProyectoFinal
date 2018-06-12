@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <br></br><br></br><br></br>
-                        <h2>Actualizar la información del proyecto C.C #{modificarProyectosController.proyectoSeleccionado.nombreProyecto} </h2>
+                        <h2>Actualizar la información de la presentación  #{modificarPresentacionesController.presentacionSeleccionada.nombrePresentacion} </h2>
                     </div>
                 </div>
 
@@ -96,20 +96,26 @@
                         <h4><strong>*Recuerde que todos los campos pueden ser modificados*</strong></h4>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-user"></i> Información del proyecto </h3>
+                                <h3 class="panel-title"><i class="fa fa-user"></i> Información de la presentación </h3>
                             </div>
                             <div class="panel-body">
-                                <b:message for="form-editar-proyecto" showSummary="true" show-detail="true"/>
-                                <h:form prependId="false" id="form-editar-proyecto">
+                                <b:message for="form-editar-presentaciones" showSummary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-editar-presentaciones">
                                     <b:panelGrid columns="1">
-                                        <b:label value="Nombre proyecto : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.nombreProyecto}" value="#{modificarProyectosController.proyectoSeleccionado.nombreProyecto}" style="border: 1px solid #337ab7"/>
-                                        <b:label value="Fecha creación del proyecto : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.fechaProyecto}" value="#{modificarProyectosController.proyectoSeleccionado.fechaProyecto}" disabled="true" />
-                                        <b:label value="Descripción del proyecto : " style="font-size: 2vh;"/>
-                                        <b:inputText p:placeholder="#{modificarProyectosController.proyectoSeleccionado.descripcionProyecto}" value="#{modificarProyectosController.proyectoSeleccionado.descripcionProyecto}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Nombre de la presentación: " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarPresentacionesController.presentacionSeleccionada.nombrePresentacion}" value="#{modificarPresentacionesController.presentacionSeleccionada.nombrePresentacion}" style="border: 1px solid #337ab7"/>
+                                        <b:label value="Fecha registro presentación : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarPresentacionesController.presentacionSeleccionada.fechaPresentacion}" value="#{modificarPresentacionesController.presentacionSeleccionada.fechaPresentacion}" disabled="true" />
+                                        <b:label value="Descripción de la presentación : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarPresentacionesController.presentacionSeleccionada.descripcionPresentacion}" value="#{modificarPresentacionesController.presentacionSeleccionada.descripcionPresentacion}" style="border: 1px solid #337ab7"/>
                                         
-                                        <b:commandButton style="background-color: #E89100; border-color: #E89100; color: #fff; width: 15vw; height: 6vh;" value="Aplicar cambios" action="#{modificarProyectosController.actulaizarInformacionProyecto()}"/>
+                                        <b:label value="Nota : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarPresentacionesController.presentacionSeleccionada.nota}" value="#{modificarPresentacionesController.presentacionSeleccionada.nota}" style="border: 1px solid #337ab7"/>
+                                        
+                                        <b:label value="Cantidad de estudiantes : " style="font-size: 2vh;"/>
+                                        <b:inputText p:placeholder="#{modificarPresentacionesController.presentacionSeleccionada.cantidadEstudiantes}" value="#{modificarPresentacionesController.presentacionSeleccionada.cantidadEstudiantes}" style="border: 1px solid #337ab7"/>
+                                        
+                                        <b:commandButton style="background-color: #E89100; border-color: #E89100; color: #fff; width: 15vw; height: 6vh;" value="Aplicar cambios" action="#{modificarPresentacionesController.actulaizarInformacionPresentacion()}"/>
                                     </b:panelGrid>
                                 </h:form>
 

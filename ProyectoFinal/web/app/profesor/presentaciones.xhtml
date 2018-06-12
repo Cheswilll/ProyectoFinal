@@ -108,7 +108,7 @@
                                         <b:dataTableColumn label="Nota" value="#{ps.nota}"/>
                                         <b:dataTableColumn label="Cantidad de estudiantes" value="#{ps.cantidadEstudiantes}"/>
                                         <b:dataTableColumn label="Más" value="">
-                                            <b:commandButton look="primary" iconAwesome="pencil" action="#{modificarProyectosController.preModificarProyecto(pr)}"/>
+                                            <b:commandButton look="primary" iconAwesome="pencil" action="#{modificarPresentacionesController.preModificarPresentacion(ps)}"/>
                                             <b:commandButton look="success" value=""
                                                              iconAwesome="eye" tooltip="Ver más"
                                                              onclick="$('.modalPseudoClassvermas').modal();">
@@ -200,7 +200,7 @@
 
                                 <b:modal id="amodal" title="Eliminar proyecto" styleClass="modalPseudoClass">
                                     <h:panelGroup id="message-modal-confirm" layout="block">
-                                        <p>¿Está seguro de eliminar ela presentación : #{listarPresentacionesController.presentacionSeleccionada.nombrePresentacion} ?
+                                        <p>¿Está seguro de eliminar la presentación : #{listarPresentacionesController.presentacionSeleccionada.nombrePresentacion} ?
                                         </p>
                                     </h:panelGroup>
                                     <f:facet name="footer">

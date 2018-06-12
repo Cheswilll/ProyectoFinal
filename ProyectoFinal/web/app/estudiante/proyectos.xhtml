@@ -153,10 +153,49 @@
                                     <f:facet name="footer">
                                         <h:form id="agregar" prependId="false">
                                             <b:button value="Close" dismiss="modal" />
-                                            <b:commandButton value="Agregar" class="btn btn-success" action="#{listarPresentacionesController.agregarPresentacion()}"/>
+                                            <b:commandButton value="Agregar" class="btn btn-success"/>
                                         </h:form>
                                     </f:facet>
                                 </b:modal>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-users"></i> Proyectos Cerrados </h3>
+                            </div>
+                            <div class="panel-body">
+                                <b:message for="tabla_proyectos_agregados" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="tabla_proyectos_agregados">
+                                    <b:dataTable value="" var="pr" style="background: #fff; color: #000;">
+                                        <b:dataTableColumn label="Nombre del proyecto" />
+                                        <b:dataTableColumn label="Estado proyecto" />
+                                        <b:dataTableColumn label="Fecha proyecto" />
+                                        <b:dataTableColumn label="Descripción del proyecto" />
+                                        <b:dataTableColumn label="Grupos" value="">
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn label="Más" value="">
+                                            <b:commandButton look="success" value=""
+                                                             iconAwesome="eye" tooltip="Ver más"
+                                                             onclick="$('.modalPseudoClassvermas').modal();">
+                                                <f:ajax event="click" render=":message-modal-vermas"
+                                                        listener="#{listarGruposController.setProyectoSeleccionado(pr)}" />
+                                            </b:commandButton>
+                                            <b:commandButton look="danger" value=""
+                                                             iconAwesome="trash" tooltip="Eliminar"
+                                                             onclick="$('.modalPseudoClassAgregar').modal();">
+                                                <f:ajax event="click" render=":message-modal-agregar"
+                                                        listener="#{listarGruposController.setProyectoSeleccionado(pr)}" />
+                                            </b:commandButton>
+                                        </b:dataTableColumn>
+
+                                    </b:dataTable>
+                                </h:form>
 
                             </div>
                         </div>
