@@ -95,7 +95,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-users"></i> Presentaciones registradas </h3>
+                                <h3 class="panel-title"><i class="fa fa-users"></i> Presentaciones Disponibles </h3>
                             </div>
                             <div class="panel-body">
                                 <b:message for="tabla_presentaciones" show-summary="true" show-detail="true"/>
@@ -164,72 +164,29 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-book"></i> Registrar presentación </h3>
-                            </div>
-                            <div class="panel-body">
-                                <b:message for="form-crear-presentacion" show-summary="true" show-detail="true"/>
-                                <h:form prependId="false" id="form-crear-presentacion">
-                                    <b:inputText p:placeholder="Nombre presentación" style="" value="#{registrarPresentacionController.nuevaPresentacion.nombrePresentacion}"/>
-                                    <b:inputText p:placeholder="Fecha presentación" style="" value="#{registrarPresentacionController.nuevaPresentacion.fechaPresentacion}"/>
-                                    <b:inputText p:placeholder="Descripción de la presentación" value="#{registrarPresentacionController.nuevaPresentacion.descripcionPresentacion}"/>
-                                    <b:inputText p:placeholder="Cantidad de estudiantes" value="#{registrarPresentacionController.nuevaPresentacion.cantidadEstudiantes}"/>
-                                    <b:inputText p:placeholder="Nota" value="#{registrarPresentacionController.nuevaPresentacion.nota}"/>
-                                    <h:selectOneMenu class="form-control"  id="estadoPresentacion" required="true" value="#{registrarPresentacionController.estadoPresentacion}" >
-                                        <f:selectItems value="#{listarEstadosPresentacionController.estadosPresentacion}" var="etpr" itemLabel="#{etpr.toString()}"/>
-                                    </h:selectOneMenu>
-
-                                    <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarPresentacionController.registrarPresentacion()}"/>
-                                </h:form>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-md-9">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-times-circle"></i> Proyectos cerrados </h3>
+                                <h3 class="panel-title"><i class="fa fa-bookmark"></i> Presentaciones Agregadas </h3>
                             </div>
                             <div class="panel-body">
-                                <b:message for="tabla_presentaciones_cerradas" show-summary="true" show-detail="true"/>
-                                <h:form prependId="false" id="tabla_presentaciones_cerradas">
-                                    <b:dataTable value="#{listarPresentacionesController.presentacionesCerradas}" var="pc" style="background: #fff; color: #000;">
-                                        <b:dataTableColumn label="Nombre de la presentación" value="#{pc.nombrePresentacion}"/>
-                                        <b:dataTableColumn label="Estado Presentación" value="#{listarPresentacionesController.validarEstadoPresentacion(pc.estadoPresentacion)}"/>
-                                        <b:dataTableColumn label="Descripción de la presentacion" value="#{pc.descripcionPresentacion}"/>
+                                <b:message for="tabla_presentaciones_agregadas" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="tabla_presentaciones_agregadas">
+                                    <b:dataTable value="#{listarPresentacionesController.presentacionesAgregadas}" var="pa" style="background: #fff; color: #000;">
+                                        <b:dataTableColumn label="Nombre de la presentación" value="#{pa.nombrePresentacion}"/>
+                                        <b:dataTableColumn label="Estado Presentación" value="#{listarPresentacionesController.validarEstadoPresentacion(pa.estadoPresentacion)}"/>
+                                        <b:dataTableColumn label="Descripción de la presentacion" value="#{pa.descripcionPresentacion}"/>
                                         <b:dataTableColumn label="Más" value="">
                                             <b:commandButton look="success" value=""
                                                              iconAwesome="eye" tooltip="Ver más"
                                                              onclick="$('.modalPseudoClassvermas').modal();">
                                                 <f:ajax event="click" render=":message-modal-vermas"
-                                                        listener="#{listarPresentacionesController.setPresentacionSeleccionada(pc)}" />
-                                            </b:commandButton>
-                                            <b:commandButton look="danger" value=""
-                                                             iconAwesome="trash" tooltip="Eliminar"
-                                                             onclick="$('.modalPseudoClass').modal();">
-                                                <f:ajax event="click" render=":message-modal-confirm"
-                                                        listener="#{listarPresentacionesController.setPresentacionSeleccionada(pc)}" />
+                                                        listener="#{listarPresentacionesController.setPresentacionSeleccionada(pa)}" />
                                             </b:commandButton>
                                         </b:dataTableColumn>
 
                                     </b:dataTable>
                                 </h:form>
-
-                                <b:modal id="amodal" title="Eliminar proyecto" styleClass="modalPseudoClass">
-                                    <h:panelGroup id="message-modal-confirm" layout="block">
-                                        <p>¿Está seguro de eliminar ela presentación : #{listarPresentacionesController.presentacionSeleccionada.nombrePresentacion} ?
-                                        </p>
-                                    </h:panelGroup>
-                                    <f:facet name="footer">
-                                        <h:form id="form-eliminar" prependId="false">
-                                            <b:button value="Close" dismiss="modal" />
-                                            <b:commandButton value="Ok" look="primary"
-                                                             actionListener="#{listarPresentacionesController.eliminarPresentacion()}"/>
-                                        </h:form>
-                                    </f:facet>
-                                </b:modal>
                             </div>
                         </div>
                     </div>

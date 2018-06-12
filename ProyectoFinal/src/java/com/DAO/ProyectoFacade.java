@@ -1,5 +1,6 @@
 package com.DAO;
 
+import com.entities.Grupo;
 import com.entities.Proyecto;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -55,5 +56,7 @@ public class ProyectoFacade extends AbstractFacade<Proyecto> implements Proyecto
         
         return proyectos;
     }
+
+
     
 }

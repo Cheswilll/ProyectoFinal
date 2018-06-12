@@ -105,11 +105,9 @@
                                         <b:dataTableColumn label="Estado proyecto" value="#{listarProyectosController.validarEstadoProyecto(pr.estadoProyecto)}"/>
                                         <b:dataTableColumn label="Fecha proyecto" value="#{pr.fechaProyecto}"/>
                                         <b:dataTableColumn label="Descripción del proyecto" value="#{pr.descripcionProyecto}"/>
-                                        <b:dataTableColumn label="Cantidad de estudiantes" value="#{pr.cantidadEstudiantes}"/>
-                                        <b:dataTableColumn label="Cantidad de grupos" value="#{pr.cantidadGrupos}"/>
                                         <b:dataTableColumn label="Más" value="">
                                             <b:commandButton look="primary" iconAwesome="pencil" action="#{modificarProyectosController.preModificarProyecto(pr)}"/>
-                                             <b:commandButton look="success" value=""
+                                            <b:commandButton look="success" value=""
                                                              iconAwesome="eye" tooltip="Ver más"
                                                              onclick="$('.modalPseudoClassvermas').modal();">
                                                 <f:ajax event="click" render=":message-modal-vermas"
@@ -121,18 +119,16 @@
                                 </h:form>
 
                                 <b:modal id="vermas" title="Información del proyecto" styleClass="modalPseudoClassvermas">
-                                        <h:panelGroup id="message-modal-vermas" layout="block">
-                                            <h:form>
+                                    <h:panelGroup id="message-modal-vermas" layout="block">
+                                        <h:form>
                                             <p><strong>Nombre del proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.nombreProyecto}</p>
                                             <p><strong>Estado proyecto :</strong> #{listarProyectosController.estadoProyecto} </p>
                                             <p><strong>Fecha proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.fechaProyecto} </p>
                                             <p><strong>Descripción del proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.descripcionProyecto} </p>
-                                            <p><strong>Cantidad de estudiantes :</strong> #{listarProyectosController.proyectoSeleccionado.cantidadEstudiantes}</p>
-                                            <p><strong>Cantidad de grupos :</strong> #{listarProyectosController.proyectoSeleccionado.cantidadGrupos}</p>
                                             <p><strong>Estudiantes asignados a proyecto :</strong> ESTUDIANTES </p>
-                                           
-                                             </h:form>
-                                        </h:panelGroup>
+
+                                        </h:form>
+                                    </h:panelGroup>
                                     <f:facet name="footer">
                                         <h:form id="volver" prependId="false">
                                             <b:button value="Close" dismiss="modal" />
@@ -144,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-3">
                         <div class="panel panel-primary">
@@ -152,24 +148,48 @@
                                 <h3 class="panel-title"><i class="fa fa-book"></i> Registrar proyecto </h3>
                             </div>
                             <div class="panel-body">
-                                 <b:message for="form-crear-proyecto" show-summary="true" show-detail="true"/>
-                                    <h:form prependId="false" id="form-crear-proyecto">
-                                        <b:inputText p:placeholder="Nombre proyecto" style="" value="#{registrarProyectoController.proyectoNuevo.nombreProyecto}"/>
-                                        <b:inputText p:placeholder="Fecha proyecto" style="" value="#{registrarProyectoController.proyectoNuevo.fechaProyecto}"/>
-                                        <b:inputText p:placeholder="Descripción del proyecto" value="#{registrarProyectoController.proyectoNuevo.descripcionProyecto}"/>
-                                        <b:inputText p:placeholder="Cantidad de estudiantes" value="#{registrarProyectoController.proyectoNuevo.cantidadEstudiantes}"/>
-                                        <b:inputText p:placeholder="Cantidad de grupos" value="#{registrarProyectoController.proyectoNuevo.cantidadGrupos}"/>
-                                        <h:selectOneMenu class="form-control"  id="estadoProyecto" required="true" value="#{registrarProyectoController.estadoProyectoString}" >
-                                            <f:selectItems value="#{listarEstadosProyectosController.estadosProyecto}" var="etpr" itemLabel="#{etpr.toString()}"/>
-                                        </h:selectOneMenu>
-                                        
-                                        <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarProyectoController.registrarProyecto()}"/>
-                                    </h:form>
+                                <b:message for="form-crear-proyecto" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-crear-proyecto">
+                                    <b:inputText p:placeholder="Nombre proyecto" style="" value="#{registrarProyectoController.proyectoNuevo.nombreProyecto}"/>
+                                    <b:inputText p:placeholder="Fecha proyecto" style="" value="#{registrarProyectoController.proyectoNuevo.fechaProyecto}"/>
+                                    <b:inputText p:placeholder="Descripción del proyecto" value="#{registrarProyectoController.proyectoNuevo.descripcionProyecto}"/>
+                                    <h:selectOneMenu class="form-control"  id="estadoProyecto" required="true" value="#{registrarProyectoController.estadoProyectoString}" >
+                                        <f:selectItems value="#{listarEstadosProyectosController.estadosProyecto}" var="etpr" itemLabel="#{etpr.toString()}"/>
+                                    </h:selectOneMenu>
+
+                                    <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarProyectoController.registrarProyecto()}">
+
+                                    </b:commandButton>
+                                </h:form>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col-md-9">
+                    
+                    <div class="col-md-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-book"></i> Registrar Grupo </h3>
+                            </div>
+                            <div class="panel-body">
+                                <b:message for="form-crear-grupo" show-summary="true" show-detail="true"/>
+                                <h:form prependId="false" id="form-crear-grupo">
+                                    <h:selectOneMenu style="margin-bottom: 2vh;" class="form-control"  id="proyecto" converter="proyectoConverter" required="true" value="#{registrarGruposController.nuevoGrupo.idProyecto}" >
+                                        <f:selectItems value="#{listarProyectosController.proyectosDisponibles}" var="prd" itemLabel="#{prd.nombreProyecto}"/>
+                                    </h:selectOneMenu>
+                                    <b:inputText p:placeholder="Cantidad de grupos" style="" value="#{registrarGruposController.cantidadGrupos}"/>
+                                    <b:inputText p:placeholder="Cantidad de estudiantes" value="#{registrarGruposController.nuevoGrupo.cantidadEstudiantes}"/>
+                                    
+
+                                    <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarGruposController.registrarGrupo()}">
+
+                                    </b:commandButton>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-times-circle"></i> Proyectos cerrados </h3>
@@ -182,7 +202,7 @@
                                         <b:dataTableColumn label="Estado proyecto" value="#{listarProyectosController.validarEstadoProyecto(pc.estadoProyecto)}"/>
                                         <b:dataTableColumn label="Descripción del proyecto" value="#{pc.descripcionProyecto}"/>
                                         <b:dataTableColumn label="Más" value="">
-                                             <b:commandButton look="success" value=""
+                                            <b:commandButton look="success" value=""
                                                              iconAwesome="eye" tooltip="Ver más"
                                                              onclick="$('.modalPseudoClassvermas').modal();">
                                                 <f:ajax event="click" render=":message-modal-vermas"
@@ -198,7 +218,7 @@
 
                                     </b:dataTable>
                                 </h:form>
-                                
+
                                 <b:modal id="amodal" title="Eliminar proyecto" styleClass="modalPseudoClass">
                                     <h:panelGroup id="message-modal-confirm" layout="block">
                                         <p>¿Está seguro de eliminar el proyecto : #{listarProyectosController.proyectoSeleccionado.nombreProyecto} ?
@@ -217,7 +237,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
         </div>
 

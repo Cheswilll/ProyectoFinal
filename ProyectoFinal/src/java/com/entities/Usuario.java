@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.entities;
 
 import java.io.Serializable;
@@ -23,10 +18,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author wmoramor
- */
+
 @Entity
 @Table(name = "usuarios")
 @XmlRootElement
@@ -69,6 +61,10 @@ public class Usuario implements Serializable {
         @JoinColumn(name = "idRol", referencedColumnName = "idRol")})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
+    
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
+    private List<Grupo> grupos;
+    
     
     
     @JoinTable(name = "usuarioswithpresentaciones", joinColumns = {
@@ -232,6 +228,17 @@ public class Usuario implements Serializable {
     public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;
     }
+
+    @XmlTransient
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+    
+    
 
     @Override
     public int hashCode() {

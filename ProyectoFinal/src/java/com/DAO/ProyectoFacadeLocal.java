@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.DAO;
 
+import com.entities.Grupo;
 import com.entities.Proyecto;
 import java.util.List;
 import javax.ejb.Local;
 
-/**
- *
- * @author wmoramor
- */
+
 @Local
 public interface ProyectoFacadeLocal {
 
@@ -33,5 +26,6 @@ public interface ProyectoFacadeLocal {
     List<Proyecto> proyectosCerrados();
     
     List<Proyecto> proyectosDisponibles();
+    
     
 }

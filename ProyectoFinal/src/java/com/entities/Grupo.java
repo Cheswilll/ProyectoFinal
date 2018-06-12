@@ -1,6 +1,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -32,6 +36,19 @@ public class Grupo implements Serializable {
     private Integer idGrupo;
     @Column(name = "noIdentificacion")
     private Long noIdentificacion;
+    @Column(name = "nombreGrupo")
+    private String nombreGrupo;
+    
+    
+    @Column(name = "cantidadEstudiantes")
+    private Integer cantidadEstudiantes;
+    
+    @JoinTable(name = "usuarioswithgrupos", joinColumns = {
+        @JoinColumn(name = "idGrupo", referencedColumnName = "idGrupo")}, inverseJoinColumns = {
+        @JoinColumn(name = "noIdentificacion", referencedColumnName = "noIdentificacion")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
+    
     @JoinColumn(name = "idProyecto", referencedColumnName = "idProyecto")
     @ManyToOne(fetch = FetchType.LAZY)
     private Proyecto idProyecto;
@@ -66,9 +83,34 @@ public class Grupo implements Serializable {
     public void setNoIdentificacion(Long noIdentificacion) {
         this.noIdentificacion = noIdentificacion;
     }
-    
-    
 
+    @XmlTransient
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public String getNombreGrupo() {
+        return nombreGrupo;
+    }
+
+    public void setNombreGrupo(String nombreGrupo) {
+        this.nombreGrupo = nombreGrupo;
+    }
+
+    public Integer getCantidadEstudiantes() {
+        return cantidadEstudiantes;
+    }
+
+    public void setCantidadEstudiantes(Integer cantidadEstudiantes) {
+        this.cantidadEstudiantes = cantidadEstudiantes;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

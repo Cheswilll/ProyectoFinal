@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.entities;
 
 import java.io.Serializable;
@@ -24,10 +19,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author wmoramor
- */
+
 @Entity
 @Table(name = "proyectos")
 @XmlRootElement
@@ -52,10 +44,6 @@ public class Proyecto implements Serializable {
     private Integer estadoProyecto;
     @Column(name = "fechaProyecto")
     private String fechaProyecto;
-    @Column(name = "cantidadEstudiantes")
-    private Integer cantidadEstudiantes;
-     @Column(name = "cantidadGrupos")
-    private Integer cantidadGrupos;
     @Column(name = "descripcionProyecto")
     private String descripcionProyecto;
     
@@ -111,22 +99,6 @@ public class Proyecto implements Serializable {
     public void setDescripcionProyecto(String descripcionProyecto) {
         this.descripcionProyecto = descripcionProyecto;
     }
-    
-    public Integer getCantidadEstudiantes() {
-        return cantidadEstudiantes;
-    }
-
-    public void setCantidadEstudiantes(Integer cantidadEstudiantes) {
-        this.cantidadEstudiantes = cantidadEstudiantes;
-    }
-
-    public Integer getCantidadGrupos() {
-        return cantidadGrupos;
-    }
-
-    public void setCantidadGrupos(Integer cantidadGrupos) {
-        this.cantidadGrupos = cantidadGrupos;
-    }
 
     @XmlTransient
     public List<Usuario> getUsuarios() {
@@ -170,8 +142,10 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "Proyecto{" + "idProyecto=" + idProyecto + ", nombreProyecto=" + nombreProyecto + ", estadoProyecto=" + estadoProyecto + ", fechaProyecto=" + fechaProyecto + ", cantidadEstudiantes=" + cantidadEstudiantes + ", cantidadGrupos=" + cantidadGrupos + ", descripcionProyecto=" + descripcionProyecto + ", usuarios=" + usuarios + '}';
+        return "Proyecto{" + "idProyecto=" + idProyecto + ", nombreProyecto=" + nombreProyecto + ", estadoProyecto=" + estadoProyecto + ", fechaProyecto=" + fechaProyecto + ", descripcionProyecto=" + descripcionProyecto + ", usuarios=" + usuarios + ", grupos=" + grupos + '}';
     }
+
+    
 
    
     

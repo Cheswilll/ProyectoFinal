@@ -1,6 +1,8 @@
 package com.DAO;
 
 import com.entities.Grupo;
+import com.entities.Proyecto;
+import java.security.acl.Group;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -22,4 +24,5 @@ public interface GrupoFacadeLocal {
 
     int count();
     
+    List<Grupo> listarGrupos(int idProyecto);
 }

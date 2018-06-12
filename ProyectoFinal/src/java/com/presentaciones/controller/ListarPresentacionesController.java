@@ -26,6 +26,7 @@ public class ListarPresentacionesController implements Serializable {
 
     private List<Presentacion> presentacionesCerradas;
     private List<Presentacion> presentacionesDisponibles;
+    private List<Presentacion> presentacionesAgregadas;
 
     private Presentacion presentacionSeleccionada;
 
@@ -39,6 +40,7 @@ public class ListarPresentacionesController implements Serializable {
         listarPresentacionesCerradas();
         listarPresentaciones();
         listarPresentacionesDisponibles();
+        listarPresentacionesAgregadas();
     }
 
     public List<Presentacion> getPresentaciones() {
@@ -81,6 +83,14 @@ public class ListarPresentacionesController implements Serializable {
         this.presentacionesDisponibles = presentacionesDisponibles;
     }
 
+    public List<Presentacion> getPresentacionesAgregadas() {
+        return presentacionesAgregadas;
+    }
+
+    public void setPresentacionesAgregadas(List<Presentacion> presentacionesAgregadas) {
+        this.presentacionesAgregadas = presentacionesAgregadas;
+    }
+    
     public void listarPresentaciones() {
         presentaciones = prfl.findAll();
     }
@@ -92,6 +102,8 @@ public class ListarPresentacionesController implements Serializable {
     public void listarPresentacionesDisponibles() {
         presentacionesDisponibles = prfl.presentacionesDisponibles();
     }
+    
+    
 
     public String validarEstadoPresentacion(Integer idEstado) {
         if (idEstado == 1) {
@@ -107,10 +119,17 @@ public class ListarPresentacionesController implements Serializable {
     public void agregarPresentacion() {
         try {
             prfl.registrarPresentacion(presentacionSeleccionada.getIdPresentacion(), sc.getNoidentificacion());
-            
             MessageUtil.enviarMensajeInformacion("tabla_presentaciones", "Exito!", "Se ha agregado correctamente ");
         } catch (Exception e) {
             MessageUtil.enviarMensajeInformacion("tabla_presentaciones", "Error", "No se puede agregar ");
+        }
+    }
+    
+    public void listarPresentacionesAgregadas(){
+        try {
+           presentacionesAgregadas = prfl.presentacionesAgregadas(sc.getNoidentificacion());
+        } catch (Exception e) {
+             MessageUtil.enviarMensajeInformacion("tabla_presentaciones_agregadas", "Error", "No hay agregadas ");
         }
     }
 

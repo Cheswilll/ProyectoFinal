@@ -15,6 +15,8 @@ public class ModificarProyectosController implements Serializable {
     @EJB
     private ProyectoFacadeLocal pfl;
     
+   
+    
     private Proyecto proyectoSeleccionado;
     
     public ModificarProyectosController() {

@@ -1,6 +1,8 @@
 package com.proyectos.controllers;
 
+import com.DAO.GrupoFacadeLocal;
 import com.DAO.ProyectoFacadeLocal;
+import com.entities.Grupo;
 import com.entities.Proyecto;
 import com.util.MessageUtil;
 import java.io.Serializable;
@@ -19,8 +21,10 @@ public class ListarProyectosController implements Serializable{
     private ProyectoFacadeLocal pfl;
     
     private List<Proyecto> proyectos;
+    
 
     private List<Proyecto> proyectosCerrados;
+    
     private List<Proyecto> proyectosDisponibles;
 
     private String estadoProyecto;
@@ -76,6 +80,10 @@ public class ListarProyectosController implements Serializable{
     public void setProyectosDisponibles(List<Proyecto> proyectosDisponibles) {
         this.proyectosDisponibles = proyectosDisponibles;
     }
+
+    
+    
+    
     
     
     public void listarProyectos(){
@@ -89,7 +97,7 @@ public class ListarProyectosController implements Serializable{
     public void listarProyectosDisponibles(){
         proyectosDisponibles = pfl.proyectosDisponibles();
     }
-    
+  
     public String validarEstadoProyecto(Integer idEstado) {
         if (idEstado == 1) {
             estadoProyecto = "Disponible";

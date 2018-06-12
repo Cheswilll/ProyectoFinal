@@ -34,7 +34,10 @@ public class SessionController implements Serializable{
     
     @PostConstruct
     public void init(){
+        
     }
+    
+    
 
     public String getContraseña() {
         return contraseña;

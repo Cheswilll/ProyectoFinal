@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <br></br><br></br><br></br>
-                        <h2> Proyectos registrados </h2>
+                        <h2> Proyectos disponibles </h2>
                     </div>
                 </div>
 
@@ -95,25 +95,30 @@
                     <div class="col-lg-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-users"></i> Proyectos registrados </h3>
+                                <h3 class="panel-title"><i class="fa fa-users"></i> Proyectos disponibles </h3>
                             </div>
                             <div class="panel-body">
                                 <b:message for="tabla_proyectos" show-summary="true" show-detail="true"/>
                                 <h:form prependId="false" id="tabla_proyectos">
-                                    <b:dataTable value="#{listarProyectosController.proyectosDisponibles}" var="pr" style="background: #fff; color: #000;">
+                                    <b:dataTable value="#{listarGruposController.proyectosDisponibles}" var="pr" style="background: #fff; color: #000;">
                                         <b:dataTableColumn label="Nombre del proyecto" value="#{pr.nombreProyecto}"/>
                                         <b:dataTableColumn label="Estado proyecto" value="#{listarProyectosController.validarEstadoProyecto(pr.estadoProyecto)}"/>
                                         <b:dataTableColumn label="Fecha proyecto" value="#{pr.fechaProyecto}"/>
                                         <b:dataTableColumn label="Descripción del proyecto" value="#{pr.descripcionProyecto}"/>
-                                        <b:dataTableColumn label="Cantidad de estudiantes" value="#{pr.cantidadEstudiantes}"/>
-                                        <b:dataTableColumn label="Cantidad de grupos" value="#{pr.cantidadGrupos}"/>
+                                        <b:dataTableColumn label="Grupos" value="">
+                                        </b:dataTableColumn>
                                         <b:dataTableColumn label="Más" value="">
-                                            <b:commandButton look="primary" iconAwesome="pencil" action="#{modificarProyectosController.preModificarProyecto(pr)}"/>
-                                             <b:commandButton look="success" value=""
+                                            <b:commandButton look="success" value=""
                                                              iconAwesome="eye" tooltip="Ver más"
                                                              onclick="$('.modalPseudoClassvermas').modal();">
                                                 <f:ajax event="click" render=":message-modal-vermas"
-                                                        listener="#{listarProyectosController.setProyectoSeleccionado(pr)}" />
+                                                        listener="#{listarGruposController.setProyectoSeleccionado(pr)}" />
+                                            </b:commandButton>
+                                            <b:commandButton look="primary" value=""
+                                                             iconAwesome="plus" tooltip="Agregar"
+                                                             onclick="$('.modalPseudoClassAgregar').modal();">
+                                                <f:ajax event="click" render=":message-modal-agregar"
+                                                        listener="#{listarGruposController.setProyectoSeleccionado(pr)}" />
                                             </b:commandButton>
                                         </b:dataTableColumn>
 
@@ -121,18 +126,16 @@
                                 </h:form>
 
                                 <b:modal id="vermas" title="Información del proyecto" styleClass="modalPseudoClassvermas">
-                                        <h:panelGroup id="message-modal-vermas" layout="block">
+                                    <h:panelGroup id="message-modal-vermas" layout="block">
+                                        <h:form>
                                             <h:form>
-                                            <p><strong>Nombre del proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.nombreProyecto}</p>
-                                            <p><strong>Estado proyecto :</strong> #{listarProyectosController.estadoProyecto} </p>
-                                            <p><strong>Fecha proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.fechaProyecto} </p>
-                                            <p><strong>Descripción del proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.descripcionProyecto} </p>
-                                            <p><strong>Cantidad de estudiantes :</strong> #{listarProyectosController.proyectoSeleccionado.cantidadEstudiantes}</p>
-                                            <p><strong>Cantidad de grupos :</strong> #{listarProyectosController.proyectoSeleccionado.cantidadGrupos}</p>
-                                            <p><strong>Estudiantes asignados a proyecto :</strong> ESTUDIANTES </p>
-                                           
-                                             </h:form>
-                                        </h:panelGroup>
+                                                <p><strong>Nombre del proyecto :</strong> #{listarProyectosController.proyectoSeleccionado.nombreProyecto}</p>
+                                                <p><strong>Estado proyecto :</strong> #{listarProyectosController.estadoProyecto} </p>
+                                                <p><strong>Fecha registro :</strong> #{listarProyectosController.proyectoSeleccionado.fechaProyecto} </p>
+                                                <p><strong>Descripción :</strong> #{listarProyectosController.proyectoSeleccionado.descripcionProyecto} </p>
+                                            </h:form>
+                                        </h:form>
+                                    </h:panelGroup>
                                     <f:facet name="footer">
                                         <h:form id="volver" prependId="false">
                                             <b:button value="Close" dismiss="modal" />
@@ -140,84 +143,26 @@
                                     </f:facet>
                                 </b:modal>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-book"></i> Registrar proyecto </h3>
-                            </div>
-                            <div class="panel-body">
-                                 <b:message for="form-crear-proyecto" show-summary="true" show-detail="true"/>
-                                    <h:form prependId="false" id="form-crear-proyecto">
-                                        <b:inputText p:placeholder="Nombre proyecto" style="" value="#{registrarProyectoController.proyectoNuevo.nombreProyecto}"/>
-                                        <b:inputText p:placeholder="Fecha proyecto" style="" value="#{registrarProyectoController.proyectoNuevo.fechaProyecto}"/>
-                                        <b:inputText p:placeholder="Descripción del proyecto" value="#{registrarProyectoController.proyectoNuevo.descripcionProyecto}"/>
-                                        <b:inputText p:placeholder="Cantidad de estudiantes" value="#{registrarProyectoController.proyectoNuevo.cantidadEstudiantes}"/>
-                                        <b:inputText p:placeholder="Cantidad de grupos" value="#{registrarProyectoController.proyectoNuevo.cantidadGrupos}"/>
-                                        <h:selectOneMenu class="form-control"  id="estadoProyecto" required="true" value="#{registrarProyectoController.estadoProyectoString}" >
-                                            <f:selectItems value="#{listarEstadosProyectosController.estadosProyecto}" var="etpr" itemLabel="#{etpr.toString()}"/>
-                                        </h:selectOneMenu>
-                                        
-                                        <b:commandButton class="" value="Registrar" style="margin-top: 2vh;" action="#{registrarProyectoController.registrarProyecto()}"/>
-                                    </h:form>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-9">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-times-circle"></i> Proyectos cerrados </h3>
-                            </div>
-                            <div class="panel-body">
-                                <b:message for="tabla_proyectos_cerrados" show-summary="true" show-detail="true"/>
-                                <h:form prependId="false" id="tabla_proyectos_cerrados">
-                                    <b:dataTable value="#{listarProyectosController.proyectosCerrados}" var="pc" style="background: #fff; color: #000;">
-                                        <b:dataTableColumn label="Nombre del proyecto" value="#{pc.nombreProyecto}"/>
-                                        <b:dataTableColumn label="Estado proyecto" value="#{listarProyectosController.validarEstadoProyecto(pc.estadoProyecto)}"/>
-                                        <b:dataTableColumn label="Descripción del proyecto" value="#{pc.descripcionProyecto}"/>
-                                        <b:dataTableColumn label="Más" value="">
-                                             <b:commandButton look="success" value=""
-                                                             iconAwesome="eye" tooltip="Ver más"
-                                                             onclick="$('.modalPseudoClassvermas').modal();">
-                                                <f:ajax event="click" render=":message-modal-vermas"
-                                                        listener="#{listarProyectosController.setProyectoSeleccionado(pc)}" />
-                                            </b:commandButton>
-                                            <b:commandButton look="danger" value=""
-                                                             iconAwesome="trash" tooltip="Eliminar"
-                                                             onclick="$('.modalPseudoClass').modal();">
-                                                <f:ajax event="click" render=":message-modal-confirm"
-                                                        listener="#{listarProyectosController.setProyectoSeleccionado(pc)}" />
-                                            </b:commandButton>
-                                        </b:dataTableColumn>
+                                <b:modal id="agregarPr" title="Agregar proyecto" styleClass="modalPseudoClassAgregar">
+                                    <h:panelGroup id="message-modal-agregar" layout="block">
+                                        <p>¿Agregar proyecto : #{listarGruposController.proyectoSeleccionado.nombreProyecto}?</p>
+                                        <h:form>
 
-                                    </b:dataTable>
-                                </h:form>
-                                
-                                <b:modal id="amodal" title="Eliminar proyecto" styleClass="modalPseudoClass">
-                                    <h:panelGroup id="message-modal-confirm" layout="block">
-                                        <p>¿Está seguro de eliminar el proyecto : #{listarProyectosController.proyectoSeleccionado.nombreProyecto} ?
-                                        </p>
+                                        </h:form>
                                     </h:panelGroup>
                                     <f:facet name="footer">
-                                        <h:form id="form-eliminar" prependId="false">
+                                        <h:form id="agregar" prependId="false">
                                             <b:button value="Close" dismiss="modal" />
-                                            <b:commandButton value="Ok" look="primary"
-                                                             actionListener="#{listarProyectosController.eliminarProyecto()}"/>
+                                            <b:commandButton value="Agregar" class="btn btn-success" action="#{listarPresentacionesController.agregarPresentacion()}"/>
                                         </h:form>
                                     </f:facet>
                                 </b:modal>
+
                             </div>
                         </div>
                     </div>
-
                 </div>
-                
+
             </div>
         </div>
 
